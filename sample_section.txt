@@ -1,0 +1,154 @@
+[{'document': 'SECTION: ALLERGIES\n'
+              'LOINC: 48765-2\n'
+              '\n'
+              'Allergy Record\n'
+              'Substance: Ampicillin\n'
+              'Reaction: Hives\n'
+              'Severity: MODERATE\n'
+              '\n'
+              'Allergy Record\n'
+              'Substance: Penicillin G\n'
+              'Reaction: Hives\n'
+              'Severity: MODERATE',
+  'id': '23b1de1f-0c0b-4201-a6db-3a3980397e9b',
+  'metadata': {'aggregation': 'LOINC_GROUPED',
+               'loinc': '48765-2',
+               'section': 'ALLERGIES',
+               'source': 'CCDA'}},
+ {'document': 'SECTION: ENCOUNTERS\n'
+              'LOINC: 46240-8\n'
+              '\n'
+              'Encounter\n'
+              'Diagnosis: Essential hypertension (disorder)\n'
+              'Date: 2015-06-22\n'
+              '\n'
+              'Encounter\n'
+              'Diagnosis: Fever (finding)\n'
+              'Date: 2015-06-22',
+  'id': '0dd55ced-eb89-4282-bdd4-72a980f52df5',
+  'metadata': {'aggregation': 'LOINC_GROUPED',
+               'loinc': '46240-8',
+               'section': 'ENCOUNTERS',
+               'source': 'CCDA'}},
+ {'document': 'SECTION: FUNCTIONAL_STATUS\n'
+              'LOINC: 47420-5\n'
+              '\n'
+              'Functional Status\n'
+              'Finding: Dependance on cane\n'
+              'Recorded On: 2017-09-12\n'
+              '\n'
+              'Functional Status\n'
+              'Finding: Dependance on cane\n'
+              'Recorded On: 2017-09-12',
+  'id': '57c851a1-02c9-4469-9cf7-c69c6955d323',
+  'metadata': {'aggregation': 'LOINC_GROUPED',
+               'loinc': '47420-5',
+               'section': 'FUNCTIONAL_STATUS',
+               'source': 'CCDA'}},
+ {'document': 'SECTION: IMMUNIZATIONS\n'
+              'LOINC: 11369-6\n'
+              '\n'
+              'Immunization\n'
+              'Vaccine: diphtheria, tetanus toxoids and acellular pertussis '
+              'vaccine, 5 pertussis antigens\n'
+              'Date: 2012-01-04\n'
+              '\n'
+              'Immunization\n'
+              'Vaccine: influenza, intradermal, quadrivalent, preservative '
+              'free\n'
+              'Date: 2015-06-22',
+  'id': '559df413-1d97-47b5-bf5a-c7b2b0776873',
+  'metadata': {'aggregation': 'LOINC_GROUPED',
+               'loinc': '11369-6',
+               'section': 'IMMUNIZATIONS',
+               'source': 'CCDA'}},
+ {'document': 'SECTION: MEDICAL_EQUIPMENT\n'
+              'LOINC: 46264-8\n'
+              '\n'
+              'Medical Equipment\n'
+              'Device: CRT-D DTBA1QQ VIVA QUAD XT US IS4/DF4',
+  'id': '4250194c-3dce-426d-b15f-ac021d753f69',
+  'metadata': {'aggregation': 'LOINC_GROUPED',
+               'loinc': '46264-8',
+               'section': 'MEDICAL_EQUIPMENT',
+               'source': 'CCDA'}},
+ {'document': 'SECTION: MEDICATIONS\n'
+              'LOINC: 10160-0\n'
+              '\n'
+              'Medication\n'
+              'Name: Ceftriaxone 10 g Solution for Injection\n'
+              'Route: Injection\n'
+              'Start Date: 2015-06-22\n'
+              '\n'
+              'Medication\n'
+              'Name: Tylenol Extra Strength 500 mg Tab\n'
+              'Route: Oral\n'
+              'Start Date: 2017-06-22\n'
+              '\n'
+              'Medication\n'
+              'Name: Aranesp (Polysorbate) 500 mcg/mL Syringe\n'
+              'Route: Oral\n'
+              'Start Date: 2015-06-22',
+  'id': '5673c2ab-98eb-4c76-87bd-bd16de23ef61',
+  'metadata': {'aggregation': 'LOINC_GROUPED',
+               'loinc': '10160-0',
+               'section': 'MEDICATIONS',
+               'source': 'CCDA'}},
+ {'document': 'SECTION: TREATMENT_PLAN\n'
+              'LOINC: 18776-5\n'
+              '\n'
+              'Treatment Plan\n'
+              'Plan: Bacterial sepsis (disorder)\n'
+              'Planned On: 2015-06-22\n'
+              '\n'
+              'Treatment Plan\n'
+              'Plan: Clindamycin 300 mg Cap\n'
+              'Planned On: 2017-09-12\n'
+              '\n'
+              'Treatment Plan\n'
+              'Plan: Chest X-ray\n'
+              'Planned On: 2015-06-22\n'
+              '\n'
+              'Treatment Plan\n'
+              'Plan: EKG\n'
+              'Planned On: 2015-06-22\n'
+              '\n'
+              'Treatment Plan\n'
+              'Plan: Urinalysis macro (dipstick) panel\n'
+              'Planned On: 2015-06-29\n'
+              '\n'
+              'Treatment Plan\n'
+              'Plan: Urinalysis macro (dipstick) panel\n'
+              'Planned On: 2015-06-22',
+  'id': '5054a4ad-7ac0-4d08-a532-266efc88a1e7',
+  'metadata': {'aggregation': 'LOINC_GROUPED',
+               'loinc': '18776-5',
+               'section': 'TREATMENT_PLAN',
+               'source': 'CCDA'}},
+ {'document': 'SECTION: PROBLEMS\n'
+              'LOINC: 11450-4\n'
+              '\n'
+              'Problem\n'
+              'Condition: Overweight (finding)\n'
+              'Onset Date: 2011-10-05\n'
+              '\n'
+              'Problem\n'
+              'Condition: Severe hypothyroidism (disorder)\n'
+              'Onset Date: 2006-12-31\n'
+              '\n'
+              'Problem\n'
+              'Condition: Chronic rejection of renal transplant (disorder)\n'
+              'Onset Date: 2011-12-31\n'
+              '\n'
+              'Problem\n'
+              'Condition: Fever (finding)\n'
+              'Onset Date: 2015-06-22\n'
+              '\n'
+              'Problem\n'
+              'Condition: Essential hypertension (disorder)\n'
+              'Onset Date: 2015-06-22',
+  'id': '143da49d-c634-47d8-8750-631b7250204f',
+  'metadata': {'aggregation': 'LOINC_GROUPED',
+               'loinc': '11450-4',
+               'section': 'PROBLEMS',
+               'source': 'CCDA'}}]

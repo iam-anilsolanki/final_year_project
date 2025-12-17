@@ -1,176 +1,256 @@
-import json
 import chromadb
-import uuid
+from chromadb.config import Settings
 import ollama
+import gradio as gr
+import uuid
+from collections import defaultdict
+from pprint import pprint
+import os
 
-# 1. SETUP: Load the JSON data
-def load_data(json_path):
-    with open(json_path, 'r') as f:
-        return json.load(f)
+# Local imports
+# Ensure these files exist in the same directory
+from semantic_analysis import build_semantic_docs
+from xml_to_json import convert_xml_to_json
 
+# -----------------------------------
+# DATA INGESTION LOGIC
+# -----------------------------------
 
-# 2. CHUNKING: Prepare documents for RAG
-def prepare_chunks(data):
-    chunks = []
+def get_data_from_xml(xml_path, json_path):
+    """
+    Parses XML to JSON and extracts semantic documents.
+    """
+    doc = convert_xml_to_json(xml_path, json_path)
+    if doc:
+        docs = build_semantic_docs(json_path)
+        return docs
+    return None
 
-    # Extract Global Context (Patient Name & ID) to attach to every chunk
-    # We do this so the LLM knows WHO the data belongs to, even if it retrieves just one isolated chunk.
-    try:
-        patient_role = data['ClinicalDocument']['recordTarget']['patientRole']
+def group_documents_by_loinc(semantic_docs):
+    """
+    Groups semantic documents by LOINC code and aggregates them into sections.
+    """
+    grouped = defaultdict(list)
 
-        # Safe extraction of name (handles list or dict structures)
-        p_name_obj = patient_role['patient']['name']
-        first_name = p_name_obj['given'][0] if isinstance(p_name_obj['given'], list) else p_name_obj['given']
-        last_name = p_name_obj['family']['#text'] if isinstance(p_name_obj['family'], dict) else p_name_obj['family']
+    for doc in semantic_docs:
+        loinc = doc["metadata"].get("loinc", "UNKNOWN")
+        grouped[loinc].append(doc)
 
-        patient_name = f"{first_name} {last_name}"
-        patient_id = patient_role['id']['@extension']
-    except KeyError:
-        patient_name = "Unknown Patient"
-        patient_id = "Unknown ID"
+    final_docs = []
 
-    # Navigate to the clinical sections
-    # Path: ClinicalDocument -> component -> structuredBody -> component (List of sections)
-    try:
-        components = data['ClinicalDocument']['component']['structuredBody']['component']
-    except KeyError:
-        print("Error: Could not find clinical sections in JSON.")
-        return []
+    for loinc, docs in grouped.items():
+        section = docs[0]["metadata"].get("section", "UNKNOWN")
 
-    # Ensure components is a list (xml parser might make it a dict if only 1 exists)
-    if not isinstance(components, list):
-        components = [components]
+        merged_text = []
+        merged_text.append(f"SECTION: {section}")
+        merged_text.append(f"LOINC: {loinc}")
+        merged_text.append("")
 
-    for comp in components:
-        section = comp.get('section')
-        if not section:
-            continue
+        for d in docs:
+            merged_text.append(d["document"])
+            merged_text.append("")
 
-        # --- A. Metadata Extraction ---
-        # Get the section title (e.g., "ALLERGIES", "VITAL SIGNS")
-        title = section.get('title', 'Unknown Section')
-        if isinstance(title, dict): title = title.get('#text', 'Unknown')
-
-        # Get the template ID (useful for strict filtering, e.g., finding only Allergies)
-        # We take the first root if available
-        template_id = "Unknown"
-        t_ids = section.get('templateId')
-        if isinstance(t_ids, list) and len(t_ids) > 0:
-            template_id = t_ids[0].get('@root')
-        elif isinstance(t_ids, dict):
-            template_id = t_ids.get('@root')
-
-        # --- B. Content Flattening ---
-        # We dump the specific section's JSON to a string.
-        # In a production app, you might use an LLM to summarize this into natural language first.
-        section_text = json.dumps(section, indent=2)
-
-        # Create the text blob for the Vector Database
-        # We prepend the Patient Context so the semantic search matches "Alice's Allergies"
-        page_content = f"PATIENT: {patient_name} (ID: {patient_id})\nSECTION: {title}\nDATA:\n{section_text}"
-
-        chunks.append({
-            "id": str(uuid.uuid4()),  # Unique ID for Chroma
-            "text": page_content,
+        final_docs.append({
+            "id": str(uuid.uuid4()),
+            "document": "\n".join(merged_text).strip(),
             "metadata": {
-                "source": "CCDA_XML",
-                "patient_id": patient_id,
-                "patient_name": patient_name,
-                "section_title": title,
-                "template_root": template_id
+                "section": section,
+                "loinc": loinc,
+                "source": "CCDA",
+                "aggregation": "LOINC_GROUPED"
             }
         })
 
-    return chunks
+    return final_docs
 
-
-# 3. STORAGE & RETRIEVAL: ChromaDB Logic
-def main():
-    # Load JSON
-    json_file = "CCDA_Converted.json"  # Ensure this file exists from previous step
+def store_sections_in_chromadb(
+    section_docs,
+    collection_name="ccda_sections"
+):
+    """
+    Initializes Ephemeral ChromaDB (Non-persistent) and stores the provided documents.
+    """
+    # 1. Initialize Client (Ephemeral / In-Memory)
     try:
-        data = load_data(json_file)
-    except FileNotFoundError:
-        print(f"File {json_file} not found. Run the XML conversion script first.")
+        # Explicitly use EphemeralClient if available, or Client with no settings
+        if hasattr(chromadb, 'EphemeralClient'):
+            client = chromadb.EphemeralClient()
+        else:
+            client = chromadb.Client(settings=Settings(anonymized_telemetry=False))
+            
+    except Exception as e:
+        print(f"Error initializing ChromaDB: {e}")
+        return None
+
+    # 2. Reset Collection (Start fresh)
+    try:
+        client.delete_collection(collection_name)
+    except Exception:
+        pass # Collection didn't exist
+
+    collection = client.get_or_create_collection(
+        name=collection_name,
+        metadata={"type": "CCDA_SECTION_LEVEL"}
+    )
+
+    # 3. Batch Add Documents
+    if section_docs:
+        collection.add(
+            ids=[doc["id"] for doc in section_docs],
+            documents=[doc["document"] for doc in section_docs],
+            metadatas=[doc["metadata"] for doc in section_docs]
+        )
+
+    return collection
+
+def initialize_system(xml_path, json_path):
+    """
+    Main initialization routine to be called once at startup.
+    """
+    print("--- System Initialization ---")
+    if not os.path.exists(xml_path):
+        print(f"Error: XML file not found at {xml_path}")
+        return None
+
+    print(f"Step 1: Converting {xml_path} -> {json_path}")
+    docs = get_data_from_xml(xml_path, json_path)
+    
+    if not docs:
+        print("Error: Failed to extract documents from XML.")
+        return None
+
+    print(f"Step 2: Extracted {len(docs)} semantic documents.")
+    final_docs = group_documents_by_loinc(docs)
+    print(f"Step 3: Grouped into {len(final_docs)} section-level documents.")
+    
+    print("Step 4: Storing in ChromaDB...")
+    collection = store_sections_in_chromadb(final_docs)
+    print("--- System Ready ---")
+    return collection
+
+# -----------------------------------
+# GLOBAL STATE
+# -----------------------------------
+
+# Initialize ONCE when the script runs
+XML_FILE = 'CCDA_23103_20Oct2017_1043418.xml'
+JSON_FILE = 'CCDA_Converted.json'
+
+try:
+    GLOBAL_COLLECTION = initialize_system(XML_FILE, JSON_FILE)
+except Exception as e:
+    print(f"Initialization Critical Failure: {e}")
+    GLOBAL_COLLECTION = None
+
+# -----------------------------------
+# STREAMING CHAT SYSTEM
+# -----------------------------------
+
+def chat_stream(user_message, history):
+    if GLOBAL_COLLECTION is None:
+        history = history or []
+        history.append({"role": "user", "content": user_message})
+        history.append({"role": "assistant", "content": "Error: System failed to initialize. Please check the server logs."})
+        yield history
         return
 
-    # Prepare chunks
-    chunks = prepare_chunks(data)
-    print(f"Generated {len(chunks)} chunks from clinical document.\n")
+    history = history or []
+    history.append({"role": "user", "content": user_message})
 
-    if not chunks:
+    # Query ChromaDB
+    try:
+        result = GLOBAL_COLLECTION.query(
+            query_texts=[user_message],
+            n_results=5
+        )
+    except Exception as e:
+        history.append({"role": "assistant", "content": f"Database Query Error: {e}"})
+        yield history
         return
 
-    # Initialize ChromaDB (Persistent means it saves to disk)
-    #
-    client = chromadb.PersistentClient(path="./chroma_db")
+    retrieved_docs = []
+    if result and result.get("documents"):
+        for docs in result["documents"]:
+            retrieved_docs.extend(docs)
 
-    # Create or Get a collection
-    # We use the default embedding function (all-MiniLM-L6-v2) which works well for general text.
-    collection = client.get_or_create_collection(name="patient_records")
+    context = "\n\n".join(retrieved_docs)
 
-    # Add documents to Chroma
-    print("Adding documents to ChromaDB...")
-    collection.add(
-        documents=[chunk['text'] for chunk in chunks],
-        metadatas=[chunk['metadata'] for chunk in chunks],
-        ids=[chunk['id'] for chunk in chunks]
-    )
-    print("Success! Data indexed.\n")
+    system_prompt = f"""
+    You are a clinical information assistant.
 
-    # --- DEMO QUERIES ---
+    You must answer questions ONLY using the provided clinical context.
 
-    # Query 1: Natural Language Semantic Search
-    query_text = "Which allergies patient have?"
-    print(f"--- Query: '{query_text}' ---")
+    Rules:
+    - Do NOT use external knowledge.
+    - Do NOT infer or guess.
+    - Do NOT hallucinate.
+    - If the answer is not explicitly present in the context, reply exactly:
+      "The requested information is not available in the provided medical record."
 
-    results = collection.query(
-        query_texts=[query_text],
-        n_results=1  # Return top 1 match
-    )
+    Answering style:
+    - Be concise and factual.
+    - Use clinical terminology.
+    - List multiple items clearly.
+    - Include dates if present. Always convert raw dates (e.g., "20150622") to "YYYY-MM-DD" format (e.g., "2015-06-22").
 
-    section_name = results['metadatas'][0][0]['section_title']
-    snippet_ = results['documents'][0][0][:]
-
-    # 2. Optimized System Prompt
-    # KEY CHANGE: We explicitly tell the model it is NOT a coder and strictly forbid technical explanations.
-    system_prompt = """
-    You are a Clinical Data Analyst. Your job is to extract medical facts from structured healthcare data (C-CDA/JSON).
-
-    CRITICAL RULES:
-    1. **Answer the medical question directly.** (e.g., "Yes, Penicillin" or "No known allergies").
-    2. **DO NOT** explain the data structure, JSON format, or field names (like 'entryRelationship' or 'typeCode').
-    3. **DO NOT** write code, Python scripts, or GraphQL queries.
-    4. **DO NOT** mention "missing SUBJ typeCode". If the data is empty or purely structural without clinical text, say: "No relevant clinical information found in this record."
-    5. Only use the provided context.
+    Clinical Context:
+    {context}
     """
 
-    # 3. Optimized User Message
-    # KEY CHANGE: We label the snippet clearly so the model knows it is 'Reference Material', not code to be analyzed.
-    user_content = f"""
-    ### REFERENCE DATA (Clinical Record Snippet)
-    Section: {section_name}
-    Content:
-    {snippet_}
+    history.append({"role": "assistant", "content": ""})
 
-    ---
+    try:
+        stream = ollama.chat(
+            model="llama3.2",
+            stream=True,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_message}
+            ]
+        )
 
-    ### USER QUESTION
-    Based strictly on the medical facts in the reference data above: {query_text}
-    """
+        assistant_reply = ""
+        for chunk in stream:
+            token = chunk["message"]["content"]
+            assistant_reply += token
+            # Update the last message (assistant's reply)
+            history[-1]["content"] = assistant_reply
+            yield history
+            
+    except Exception as e:
+        history[-1]["content"] = f"Error calling LLM: {str(e)} Is Ollama running?"
+        yield history
 
-    # 4. Run the Chat
-    response = ollama.chat(
-        model='llama3.2',
-        messages=[
-            {'role': 'system', 'content': system_prompt},
-            {'role': 'user', 'content': user_content}
-        ]
-    )
 
-    print(f"--- Query: '{query_text}' ---")
-    print(response['message']['content'])
+# -----------------------------------
+# GRADIO UI
+# -----------------------------------
 
+def launch_app():
+    with gr.Blocks(title="Clinical RAG Chat (Streaming)") as demo:
+        gr.Markdown("## 🏥 Clinical Information Assistant (CCDA + RAG)")
+
+        chatbot = gr.Chatbot(height=800)
+
+        msg = gr.Textbox(
+            placeholder="Ask a clinical question...",
+            label="User Question"
+        )
+
+        clear = gr.Button("Clear Chat")
+
+        # Submit handler: updates chatbot and clears textbox
+        msg.submit(
+            chat_stream,
+            inputs=[msg, chatbot],
+            outputs=[chatbot]
+        ).then(
+            lambda: "", None, msg  # Clear the textbox immediately after submit starts
+        )
+
+        clear.click(lambda: [], None, chatbot)
+
+    demo.launch()
 
 if __name__ == "__main__":
-    main()
+    launch_app()

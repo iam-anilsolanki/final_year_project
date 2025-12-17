@@ -90,6 +90,7 @@ def convert_xml_to_json(xml_file_path, json_file_path):
             json.dump(data, json_file, indent=4)
 
         print(f"Success! Converted data saved to: {json_file_path}")
+        return True
 
     except ET.ParseError as e:
         print(f"Error: Failed to parse XML. The file might be corrupted.\nDetails: {e}")

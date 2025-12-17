@@ -2,7 +2,7 @@ import chromadb
 from pprint import pprint
 import ollama
 import json
-
+from pprint import pprint
 
 client = chromadb.PersistentClient(path="./chroma_db")
 
