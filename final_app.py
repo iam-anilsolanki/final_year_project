@@ -471,504 +471,237 @@ def launch_app():
     # Custom CSS for modern, professional UI with enhanced styling
     custom_css = """
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-    
-    * {
-        font-family: 'Inter', sans-serif !important;
+
+    body, .gradio-container {
+        background-color: #0f172a; /* Slate 900 */
+        font-family: 'Inter', sans-serif;
+        color: #f1f5f9;
+        margin: 0;
+        padding: 0;
     }
-    
-    /* ========================================
-       MAIN CONTAINER & BACKGROUND
-       ======================================== */
-    .gradio-container {
-        background: linear-gradient(135deg, #0a0e1a 0%, #1a1f35 50%, #0a0e1a 100%) !important;
-        background-attachment: fixed !important;
-        min-height: 100vh !important;
-    }
-    
-    /* ========================================
-       HEADER STYLING
-       ======================================== */
+
+    /* --- Scoped Styles (Cards & Containers) --- */
     .header-container {
-        background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%) !important;
-        backdrop-filter: blur(20px) !important;
-        -webkit-backdrop-filter: blur(20px) !important;
-        border: 1px solid rgba(148, 163, 184, 0.15) !important;
-        border-radius: 20px !important;
-        padding: 32px !important;
-        margin-bottom: 28px !important;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05) inset !important;
+        background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        padding: 2rem;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        text-align: center;
     }
     
     .header-container h1 {
-        font-size: 32px !important;
-        font-weight: 700 !important;
-        background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%) !important;
-        -webkit-background-clip: text !important;
-        -webkit-text-fill-color: transparent !important;
-        background-clip: text !important;
-        margin-bottom: 8px !important;
+        font-weight: 700;
+        color: #38bdf8; /* Sky 400 */
+        margin-bottom: 0.5rem;
     }
     
-    .header-container h3 {
-        color: #94a3b8 !important;
-        font-weight: 500 !important;
-        font-size: 18px !important;
-        margin-bottom: 4px !important;
-    }
-    
-    .header-container p {
-        color: #64748b !important;
-        font-size: 14px !important;
-    }
-    
-    /* ========================================
-       CARD STYLING WITH GLASSMORPHISM
-       ======================================== */
     .card {
-        background: linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.7) 100%) !important;
-        backdrop-filter: blur(20px) !important;
-        -webkit-backdrop-filter: blur(20px) !important;
-        border: 1px solid rgba(148, 163, 184, 0.15) !important;
-        border-radius: 18px !important;
-        padding: 24px !important;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05) inset !important;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        background: rgba(30, 41, 59, 0.7); /* Slate 800 with opacity */
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 20px;
+        margin-bottom: 15px;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
     }
-    
-    .card:hover {
-        border-color: rgba(59, 130, 246, 0.4) !important;
-        box-shadow: 0 16px 56px rgba(59, 130, 246, 0.2), 0 0 0 1px rgba(59, 130, 246, 0.1) inset !important;
-        transform: translateY(-4px) !important;
-    }
-    
-    /* ========================================
-       BUTTON STYLING
-       ======================================== */
-    .primary-btn button {
-        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
-        border: none !important;
-        border-radius: 14px !important;
-        padding: 14px 28px !important;
-        font-weight: 600 !important;
-        font-size: 15px !important;
-        color: white !important;
-        box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1) inset !important;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        cursor: pointer !important;
-    }
-    
-    .primary-btn button:hover {
-        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
-        box-shadow: 0 8px 28px rgba(59, 130, 246, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.15) inset !important;
-        transform: translateY(-3px) scale(1.02) !important;
-    }
-    
-    .primary-btn button:active {
-        transform: translateY(-1px) scale(0.98) !important;
-    }
-    
-    .secondary-btn button {
-        background: rgba(148, 163, 184, 0.12) !important;
-        border: 1px solid rgba(148, 163, 184, 0.25) !important;
-        border-radius: 14px !important;
-        padding: 12px 24px !important;
-        font-weight: 500 !important;
-        font-size: 14px !important;
-        color: #e2e8f0 !important;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        cursor: pointer !important;
-    }
-    
-    .secondary-btn button:hover {
-        background: rgba(148, 163, 184, 0.2) !important;
-        border-color: rgba(59, 130, 246, 0.5) !important;
-        color: #60a5fa !important;
-        transform: translateY(-2px) !important;
-        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2) !important;
-    }
-    
-    /* ========================================
-       PROFESSIONAL CHATBOT STYLING
-       ======================================== */
-    
-    /* Chatbot container with depth */
+
+    /* --- Chatbot Customization --- */
     .chatbot {
-        background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(10, 14, 26, 0.9) 100%) !important;
-        border: 1px solid rgba(148, 163, 184, 0.15) !important;
-        border-radius: 18px !important;
-        padding: 20px !important;
-        box-shadow: inset 0 2px 12px rgba(0, 0, 0, 0.4), 0 4px 16px rgba(0, 0, 0, 0.2) !important;
-        overflow-y: auto !important;
+        height: 600px !important;
+        background-color: transparent !important;
+        border: none !important;
+    }
+
+    /* Message Bubbles */
+    .message-wrap .message.user {
+        background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); /* Sky 500 to 600 */
+        color: white;
+        border-radius: 12px 12px 0 12px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .message-wrap .message.bot {
+        background: #1e293b; /* Slate 800 */
+        border: 1px solid rgba(255,255,255,0.1);
+        color: #e2e8f0;
+        border-radius: 12px 12px 12px 0;
     }
     
-    /* Message wrapper - proper spacing */
-    .message-wrap {
-        padding: 8px 0 !important;
-        margin: 8px 0 !important;
-        display: flex !important;
-        align-items: flex-start !important;
-        gap: 12px !important;
-        animation: messageSlideIn 0.3s ease-out !important;
-    }
-    
-    @keyframes messageSlideIn {
-        from {
-            opacity: 0;
-            transform: translateY(10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    
-    /* User message row - align right */
-    .message-wrap.user {
-        flex-direction: row-reverse !important;
-        justify-content: flex-start !important;
-    }
-    
-    /* Bot message row - align left */
-    .message-wrap.bot {
-        flex-direction: row !important;
-        justify-content: flex-start !important;
-    }
-    
-    /* Avatar styling - enhanced circles */
-    .avatar-container {
-        width: 40px !important;
-        height: 40px !important;
-        min-width: 40px !important;
-        border-radius: 50% !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        font-size: 20px !important;
-        flex-shrink: 0 !important;
-        transition: all 0.3s ease !important;
-    }
-    
-    /* User avatar - vibrant blue gradient */
-    .user .avatar-container {
-        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
-        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.5), 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
-    }
-    
-    /* Bot avatar - professional gray */
-    .bot .avatar-container {
-        background: linear-gradient(135deg, rgba(148, 163, 184, 0.25) 0%, rgba(100, 116, 139, 0.3) 100%) !important;
-        border: 2px solid rgba(148, 163, 184, 0.3) !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
-    }
-    
-    /* Message bubble - enhanced styling */
-    .message {
-        padding: 14px 18px !important;
-        border-radius: 16px !important;
-        max-width: 70% !important;
-        word-wrap: break-word !important;
-        line-height: 1.6 !important;
-        font-size: 15px !important;
-        transition: all 0.3s ease !important;
-    }
-    
-    /* User message bubble - vibrant blue gradient */
-    .user .message {
-        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    /* Input Field */
+    .input-field textarea {
+        background-color: #1e293b !important;
+        border: 1px solid #334155 !important;
         color: white !important;
-        border-bottom-right-radius: 6px !important;
-        box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1) inset !important;
+        border-radius: 8px !important;
     }
     
-    .user .message:hover {
-        box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.15) inset !important;
+    .input-field textarea:focus {
+        border-color: #38bdf8 !important;
+        box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2) !important;
     }
-    
-    /* Bot message bubble - sophisticated dark theme */
-    .bot .message {
-        background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%) !important;
-        color: #e2e8f0 !important;
-        border: 1px solid rgba(148, 163, 184, 0.2) !important;
-        border-bottom-left-radius: 6px !important;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05) inset !important;
-    }
-    
-    .bot .message:hover {
-        border-color: rgba(59, 130, 246, 0.3) !important;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(59, 130, 246, 0.1) inset !important;
-    }
-    
-    /* Message text styling */
-    .bot .message p {
-        color: #e2e8f0 !important;
-        margin: 0 !important;
-    }
-    
-    .user .message p {
+
+    /* --- Buttons --- */
+    .primary-btn {
+        background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%) !important;
+        border: none !important;
         color: white !important;
-        margin: 0 !important;
+        font-weight: 600 !important;
+        border-radius: 8px !important;
+        transition: all 0.2s ease !important;
     }
     
-    /* ========================================
-       INPUT FIELD STYLING
-       ======================================== */
-    
-    /* Chat input textbox - premium design */
-    textarea[placeholder*="Ask"],
-    textarea[placeholder*="clinical"],
-    textarea[placeholder*="💭"] {
-        background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%) !important;
-        border: 1px solid rgba(148, 163, 184, 0.25) !important;
-        border-radius: 14px !important;
-        color: #f1f5f9 !important;
-        padding: 14px 18px !important;
-        font-size: 15px !important;
-        line-height: 1.6 !important;
-        min-height: 52px !important;
-        max-height: 140px !important;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.05) inset !important;
+    .primary-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(14, 165, 233, 0.4) !important;
     }
     
-    textarea[placeholder*="Ask"]:focus,
-    textarea[placeholder*="clinical"]:focus,
-    textarea[placeholder*="💭"]:focus {
-        border-color: #3b82f6 !important;
-        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2), 0 4px 16px rgba(59, 130, 246, 0.3) !important;
-        background: linear-gradient(135deg, rgba(30, 41, 59, 1) 0%, rgba(15, 23, 42, 1) 100%) !important;
-        outline: none !important;
-        transform: translateY(-1px) !important;
-    }
-    
-    textarea::placeholder {
-        color: #64748b !important;
-        opacity: 0.8 !important;
-    }
-    
-    /* ========================================
-       DROPDOWN STYLING
-       ======================================== */
-    .dropdown select {
-        background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%) !important;
-        border: 1px solid rgba(148, 163, 184, 0.25) !important;
-        border-radius: 14px !important;
+    .secondary-btn {
+        background: #334155 !important; /* Slate 700 */
+        border: 1px solid #475569 !important;
         color: #e2e8f0 !important;
-        padding: 14px 18px !important;
-        font-size: 15px !important;
-        font-weight: 500 !important;
-        transition: all 0.3s ease !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
-        cursor: pointer !important;
+        border-radius: 8px !important;
     }
     
-    .dropdown select:hover {
-        border-color: rgba(59, 130, 246, 0.4) !important;
-        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2) !important;
+    .secondary-btn:hover {
+        background: #475569 !important;
     }
-    
-    .dropdown select:focus {
-        border-color: #3b82f6 !important;
-        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important;
-        outline: none !important;
-    }
-    
-    /* ========================================
-       PATIENT INFO CARDS
-       ======================================== */
-    .patient-info {
-        background: linear-gradient(135deg, rgba(59, 130, 246, 0.18) 0%, rgba(37, 99, 235, 0.12) 100%) !important;
-        border: 1px solid rgba(59, 130, 246, 0.35) !important;
-        border-radius: 14px !important;
-        padding: 20px !important;
-        margin: 14px 0 !important;
-        box-shadow: 0 4px 16px rgba(59, 130, 246, 0.15), 0 0 0 1px rgba(59, 130, 246, 0.1) inset !important;
-        transition: all 0.3s ease !important;
-    }
-    
-    .patient-info:hover {
-        box-shadow: 0 6px 24px rgba(59, 130, 246, 0.25), 0 0 0 1px rgba(59, 130, 246, 0.2) inset !important;
-        transform: translateY(-2px) !important;
-    }
-    
-    .patient-info h4 {
-        margin-top: 0 !important;
-        margin-bottom: 12px !important;
-        font-size: 18px !important;
-        font-weight: 600 !important;
-    }
-    
-    .patient-info p {
-        margin: 8px 0 !important;
-        font-size: 14px !important;
-        line-height: 1.6 !important;
-    }
-    
-    .patient-info strong {
-        color: #60a5fa !important;
-        font-weight: 600 !important;
-    }
-    
-    /* ========================================
-       STATS CARD
-       ======================================== */
-    .stats-card {
-        background: linear-gradient(135deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.6) 100%) !important;
-        border: 1px solid rgba(148, 163, 184, 0.2) !important;
-        border-radius: 14px !important;
-        padding: 18px !important;
-        margin: 10px 0 !important;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
-    }
-    
-    .stats-card:hover {
-        background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.8) 100%) !important;
-        border-color: rgba(59, 130, 246, 0.4) !important;
-        box-shadow: 0 4px 16px rgba(59, 130, 246, 0.2) !important;
-        transform: translateY(-2px) !important;
-    }
-    
-    .stats-card h4 {
-        margin-top: 0 !important;
-        margin-bottom: 12px !important;
-        font-size: 16px !important;
-        font-weight: 600 !important;
-    }
-    
-    .stats-card p {
-        margin: 6px 0 !important;
-        font-size: 14px !important;
-    }
-    
-    .stats-card strong {
-        color: #60a5fa !important;
-        font-weight: 600 !important;
-    }
-    
-    /* ========================================
-       EXAMPLE QUESTIONS BUTTONS
-       ======================================== */
-    .example-btn button {
-        background: linear-gradient(135deg, rgba(139, 92, 246, 0.12) 0%, rgba(124, 58, 237, 0.08) 100%) !important;
-        border: 1px solid rgba(139, 92, 246, 0.3) !important;
-        border-radius: 12px !important;
-        padding: 10px 18px !important;
-        font-size: 14px !important;
-        color: #c4b5fd !important;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        text-align: left !important;
-        width: 100% !important;
-        cursor: pointer !important;
-        font-weight: 500 !important;
-    }
-    
-    .example-btn button:hover {
-        background: linear-gradient(135deg, rgba(139, 92, 246, 0.25) 0%, rgba(124, 58, 237, 0.18) 100%) !important;
-        border-color: rgba(139, 92, 246, 0.5) !important;
-        color: #e9d5ff !important;
-        transform: translateX(6px) !important;
-        box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3) !important;
-    }
-    
-    /* ========================================
-       FILE UPLOAD AREA
-       ======================================== */
-    .file-upload {
-        background: linear-gradient(135deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.6) 100%) !important;
-        border: 2px dashed rgba(148, 163, 184, 0.3) !important;
-        border-radius: 14px !important;
-        padding: 28px !important;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        text-align: center !important;
-    }
-    
-    .file-upload:hover {
-        border-color: rgba(59, 130, 246, 0.6) !important;
-        background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.8) 100%) !important;
-        box-shadow: 0 4px 16px rgba(59, 130, 246, 0.2) !important;
-        transform: translateY(-2px) !important;
-    }
-    
-    /* ========================================
-       TYPOGRAPHY
-       ======================================== */
-    h1, h2, h3, h4, h5, h6 {
-        color: #f1f5f9 !important;
-        font-weight: 600 !important;
-        letter-spacing: -0.02em !important;
-    }
-    
-    h1 { font-size: 32px !important; }
-    h2 { font-size: 26px !important; }
-    h3 { font-size: 20px !important; }
-    h4 { font-size: 18px !important; }
-    
-    p, label, span {
-        color: #cbd5e1 !important;
-        line-height: 1.6 !important;
-    }
-    
-    label {
-        font-weight: 500 !important;
-        font-size: 14px !important;
-        margin-bottom: 8px !important;
-    }
-    
-    /* Markdown styling */
-    .markdown-text {
-        color: #e2e8f0 !important;
-        line-height: 1.7 !important;
-    }
-    
-    .markdown-text strong {
-        color: #60a5fa !important;
-        font-weight: 600 !important;
-    }
-    
-    .markdown-text code {
-        background: rgba(59, 130, 246, 0.15) !important;
-        color: #93c5fd !important;
-        padding: 2px 6px !important;
-        border-radius: 4px !important;
+
+    .example-btn {
+        background: rgba(56, 189, 248, 0.1) !important;
+        border: 1px solid rgba(56, 189, 248, 0.2) !important;
+        color: #38bdf8 !important;
+        margin: 4px !important;
         font-size: 0.9em !important;
+        border-radius: 20px !important;
+        text-align: left !important;
     }
     
-    /* ========================================
-       SCROLLBAR STYLING
-       ======================================== */
+    .example-btn:hover {
+        background: rgba(56, 189, 248, 0.2) !important;
+    }
+
+    /* --- Typography & Utils --- */
+    .prose {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+    
+    code {
+        background: #0f172a !important;
+        color: #ec4899 !important; /* Pink 500 */
+    }
+
+    /* --- Custom Patient Stats --- */
+    .patient-info {
+        background: rgba(15, 23, 42, 0.4);
+        padding: 12px;
+        border-radius: 8px;
+        margin-top: 10px;
+    }
+    
+    .stats-card {
+        background: rgba(15, 23, 42, 0.4);
+        padding: 12px;
+        border-radius: 8px;
+        margin-top: 10px;
+    }
+    
+    .stats-card p, .patient-info p {
+        margin: 4px 0;
+        font-size: 0.9rem;
+        color: #cbd5e1;
+    }
+    
+    /* Scrollbar */
     ::-webkit-scrollbar {
-        width: 10px;
-        height: 10px;
+        width: 8px;
+        height: 8px;
     }
     
     ::-webkit-scrollbar-track {
-        background: rgba(15, 23, 42, 0.5);
-        border-radius: 5px;
+        background: #0f172a; 
     }
     
     ::-webkit-scrollbar-thumb {
-        background: linear-gradient(135deg, rgba(148, 163, 184, 0.4) 0%, rgba(100, 116, 139, 0.5) 100%);
-        border-radius: 5px;
-        border: 2px solid rgba(15, 23, 42, 0.5);
+        background: #334155; 
+        border-radius: 4px;
     }
     
     ::-webkit-scrollbar-thumb:hover {
-        background: linear-gradient(135deg, rgba(148, 163, 184, 0.6) 0%, rgba(100, 116, 139, 0.7) 100%);
+        background: #475569; 
+    }
+
+    /* --- Dropdown Fixes --- */
+    .dropdown {
+        background-color: #1e293b !important;
+        border: 1px solid #334155 !important;
+        border-radius: 8px !important;
     }
     
-    /* ========================================
-       UTILITY CLASSES
-       ======================================== */
-    
-    /* Smooth transitions for all interactive elements */
-    button, input, textarea, select {
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    .dropdown .container {
+        background-color: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
     }
     
-    /* Focus visible for accessibility */
-    *:focus-visible {
-        outline: 2px solid #3b82f6 !important;
-        outline-offset: 2px !important;
+    .dropdown label span {
+        color: #94a3b8 !important; /* Label text */
+        margin-bottom: 4px;
+        display: block;
+    }
+    
+    /* The internal input wrapper */
+    .dropdown .wrap-inner {
+        background-color: transparent !important;
+        border: 1px solid transparent !important;
+    }
+    
+    /* The actual input/display area */
+    .dropdown .secondary-wrap {
+        background-color: #1e293b !important;
+        border: 1px solid #334155 !important;
+        color: white !important;
+    }
+
+    .dropdown input {
+        background-color: transparent !important;
+        color: white !important;
+    }
+
+    /* SVG Icons (Chevron) */
+    .dropdown svg {
+        fill: #94a3b8 !important;
+    }
+
+    /* The Options Menu */
+    .dropdown ul.options {
+        background-color: #0f172a !important;
+        border: 1px solid #334155 !important;
+        border-radius: 8px !important;
+        margin-top: 4px !important;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5) !important;
+        z-index: 9999 !important;
+    }
+    
+    .dropdown li.item {
+        background-color: transparent !important;
+        color: #e2e8f0 !important;
+        padding: 8px 12px !important;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    .dropdown li.item:hover {
+        background-color: #334155 !important;
+        color: #38bdf8 !important;
+    }
+    
+    .dropdown li.item.selected {
+        background-color: #1e293b !important;
+        color: #38bdf8 !important;
+        font-weight: 600;
     }
     """
     
@@ -1000,7 +733,7 @@ def launch_app():
             logger.error(f"Error getting patient stats: {e}")
             return "<div class='stats-card'><p>Error loading statistics</p></div>"
     
-    with gr.Blocks(title="Clinical RAG Chat - AI Medical Assistant", css=custom_css, theme=gr.themes.Base()) as demo:
+    with gr.Blocks(title="Clinical RAG Chat - AI Medical Assistant", theme=gr.themes.Base(), css=custom_css) as demo:
         # Header
         with gr.Row(elem_classes="header-container"):
             gr.Markdown("""
@@ -1016,7 +749,7 @@ def launch_app():
         
         with gr.Row():
             # Left Sidebar - Patient Selection & Info
-            with gr.Column(scale=1, elem_classes="card"):
+            with gr.Column(scale=3, elem_classes="card"):
                 gr.Markdown("### 👥 Patient Management")
                 
                 # Patient Selection Dropdown
@@ -1074,12 +807,12 @@ def launch_app():
                     example_buttons.append((btn, question))
             
             # Right Side - Chat Interface
-            with gr.Column(scale=2):
+            with gr.Column(scale=5):
                 with gr.Row(elem_classes="card"):
                     gr.Markdown("### 💬 Chat Interface")
                 
                 chatbot = gr.Chatbot(
-                    height=500,
+                    height=600,
                     elem_classes="chatbot",
                     show_label=False,
                     avatar_images=("👤", "🤖")  # User and Bot avatars
@@ -1089,14 +822,15 @@ def launch_app():
                     msg = gr.Textbox(
                         placeholder="💭 Ask a clinical question about the patient...",
                         label="Your Question",
-                        scale=4,
+                        lines=2,
+                        max_lines=4,
                         elem_classes="input-field",
                         show_label=False
                     )
                     
                 with gr.Row():
-                    submit_btn = gr.Button("🚀 Send", scale=1, elem_classes="primary-btn")
-                    clear_btn = gr.Button("🗑️ Clear Chat", scale=1, elem_classes="secondary-btn")
+                    submit_btn = gr.Button("🚀 Send", elem_classes="primary-btn")
+                    clear_btn = gr.Button("🗑️ Clear Chat", elem_classes="secondary-btn")
 
         # Event Handlers
         
