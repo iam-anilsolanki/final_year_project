@@ -1,6 +1,10 @@
 import json
 import uuid
 from datetime import datetime
+from logger_config import get_logger
+
+# Initialize logger
+logger = get_logger(__name__)
 
 def format_date(date_str):
     """
@@ -16,9 +20,12 @@ def format_date(date_str):
              # Also handles timestamps like 201506221000 by slicing first 8 chars
              clean_date = date_str[:8]
              dt = datetime.strptime(clean_date, "%Y%m%d")
-             return dt.strftime("%Y-%m-%d")
+             formatted = dt.strftime("%Y-%m-%d")
+             logger.debug(f"Formatted date: {date_str} -> {formatted}")
+             return formatted
         return date_str
-    except ValueError:
+    except ValueError as e:
+        logger.warning(f"Failed to format date '{date_str}': {e}")
         return date_str
 
 def as_list(x):
@@ -415,57 +422,174 @@ def semantic_assessments(section):
     # Mostly text based
     return extract_text_content(section, "ASSESSMENTS", "51848-0")
 
+# ---------------- DEMOGRAPHICS ----------------
+def semantic_demographics(ccda):
+    docs = []
+    logger.info("Processing demographics section")
+    try:
+        patient_role = ccda["ClinicalDocument"]["recordTarget"]["patientRole"]
+        patient = patient_role["patient"]
+        
+        # Name
+        name_node = patient.get("name", {})
+        given_list = as_list(name_node.get("given", []))
+        given_parts = []
+        for p in given_list:
+            if isinstance(p, dict):
+                given_parts.append(p.get("#text", ""))
+            else:
+                given_parts.append(str(p))
+        given = " ".join(given_parts).strip()
+        
+        family_node = name_node.get("family", {})
+        if isinstance(family_node, dict):
+            family = family_node.get("#text", "")
+        else:
+            family = str(family_node)
+            
+        full_name = f"{given} {family}".strip()
+        logger.debug(f"Extracted patient name: {full_name}")
+
+        # Gender
+        gender = patient.get("administrativeGenderCode", {}).get("@displayName", "Unknown")
+        
+        # DOB
+        dob = format_date(patient.get("birthTime", {}).get("@value"))
+        
+        # Address
+        addr_node = patient_role.get("addr", {})
+        street = addr_node.get("streetAddressLine", "")
+        city = addr_node.get("city", "")
+        state = addr_node.get("state", "")
+        zip_code = addr_node.get("postalCode", "")
+        country = addr_node.get("country", "")
+        address = f"{street}, {city}, {state} {zip_code}, {country}".strip()
+        
+        # Telecom (Phone)
+        telecom_node = as_list(patient_role.get("telecom", []))
+        telecoms = []
+        for t in telecom_node:
+            val = t.get("@value", "")
+            use = t.get("@use", "")
+            if val:
+                telecoms.append(f"{val} ({use})")
+        telecom_str = ", ".join(telecoms)
+
+        # Race & Ethnicity
+        race_node = as_list(patient.get("raceCode", []))
+        races = [r.get("@displayName", "") for r in race_node if r.get("@displayName")]
+        race = ", ".join(races)
+        
+        ethnicity = patient.get("ethnicGroupCode", {}).get("@displayName", "Unknown")
+        
+        # Language
+        lang = patient.get("languageCommunication", {}).get("languageCode", {}).get("@code", "en")
+
+        text = f'''
+Patient Demographics
+Patient Name: {full_name}
+Gender: {gender}
+Date of Birth: {dob}
+Address: {address}
+Telecom: {telecom_str}
+Race: {race}
+Ethnicity: {ethnicity}
+Language: {lang}
+'''
+        # Using a generic LOINC or placeholder since demographics is header info
+        docs.append(make_doc(text, "DEMOGRAPHICS", "N/A"))
+        logger.info(f"Successfully extracted demographics for patient: {full_name}")
+        
+    except Exception as e:
+        logger.error(f"Error extracting demographics: {e}", exc_info=True)
+        print(f"Error extracting demographics: {e}")
+        pass
+    print(docs)
+    return docs
+
+
 
 # ---------------- MASTER PIPELINE ----------------
 def build_semantic_docs(json_path):
+    logger.info(f"Starting semantic document extraction from: {json_path}")
     with open(json_path, "r", encoding="utf-8") as f:
         ccda = json.load(f)
+    logger.info("Successfully loaded CCDA JSON file")
 
     docs = []
+    
+    # Extract Demographics (Header Level)
+    logger.info("Extracting demographics")
+    docs.extend(semantic_demographics(ccda))
 
+    logger.info("Processing clinical sections")
+    section_count = 0
     for comp in get_sections(ccda):
         section = comp["section"]
         code = section["code"]["@code"]
+        section_count += 1
 
         if code == "48765-2":
+            logger.debug("Processing ALLERGIES section")
             docs.extend(semantic_allergies(section))
         elif code == "46240-8":
+            logger.debug("Processing ENCOUNTERS section")
             docs.extend(semantic_encounters(section))
         elif code == "47420-5":
+            logger.debug("Processing FUNCTIONAL_STATUS section")
             docs.extend(semantic_functional_status(section))
         elif code == "11369-6":
+            logger.debug("Processing IMMUNIZATIONS section")
             docs.extend(semantic_immunizations(section))
         elif code == "46264-8":
+            logger.debug("Processing MEDICAL_EQUIPMENT section")
             docs.extend(semantic_equipment(section))
         elif code == "10160-0":
+            logger.debug("Processing MEDICATIONS section")
             docs.extend(semantic_medications(section))
         elif code == "11450-4":
+            logger.debug("Processing PROBLEMS section")
             docs.extend(semantic_problems(section))
         elif code == "18776-5":
+            logger.debug("Processing TREATMENT_PLAN section")
             docs.extend(semantic_treatment(section))
         # New Sections
         elif code == "47519-4":
+            logger.debug("Processing PROCEDURES section")
             docs.extend(semantic_procedures(section))
         elif code == "30954-2":
+            logger.debug("Processing RESULTS section")
             docs.extend(semantic_results(section))
         elif code == "29762-2":
+            logger.debug("Processing SOCIAL_HISTORY section")
             docs.extend(semantic_social_history(section))
         elif code == "8716-3":
+            logger.debug("Processing VITAL_SIGNS section")
             docs.extend(semantic_vitals(section))
         elif code == "61146-7":
+            logger.debug("Processing GOALS section")
             docs.extend(semantic_goals(section))
         elif code == "75310-3":
+            logger.debug("Processing HEALTH_CONCERNS section")
             docs.extend(semantic_health_concerns(section))
         elif code == "42349-1":
+            logger.debug("Processing REASON_FOR_REFERRAL section")
             docs.extend(semantic_reason_referral(section))
         elif code == "10190-7":
+            logger.debug("Processing MENTAL_STATUS section")
             docs.extend(semantic_mental_status(section))
         elif code == "51848-0":
+            logger.debug("Processing ASSESSMENTS section")
             docs.extend(semantic_assessments(section))
+        else:
+            logger.warning(f"Unknown section code: {code}")
 
+    logger.info(f"Processed {section_count} sections, created {len(docs)} semantic documents")
     return docs
 
 
 if __name__ == "__main__":
+    logger.info("Semantic analysis script started")
     data = build_semantic_docs("./CCDA_Converted.json")
     print(json.dumps(data, indent=2))
+    logger.info("Semantic analysis script completed")

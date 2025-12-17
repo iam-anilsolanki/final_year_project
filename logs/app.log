@@ -1,0 +1,95 @@
+[2025-12-17 12:01:18] [INFO] [test_module] - This is an info message
+[2025-12-17 12:01:18] [WARNING] [test_module] - This is a warning message
+[2025-12-17 12:01:18] [ERROR] [test_module] - This is an error message
+[2025-12-17 12:01:18] [CRITICAL] [test_module] - This is a critical message
+[2025-12-17 12:01:48] [INFO] [__main__] - XML to JSON converter started
+[2025-12-17 12:01:48] [INFO] [__main__] - Starting XML to JSON conversion: CCDA_23103_20Oct2017_1043418.xml -> CCDA_Converted.json
+[2025-12-17 12:01:48] [INFO] [__main__] - Successfully parsed XML. Root tag: {urn:hl7-org:v3}ClinicalDocument
+[2025-12-17 12:01:48] [INFO] [__main__] - XML to dictionary conversion completed
+[2025-12-17 12:01:48] [INFO] [__main__] - Successfully converted and saved to: CCDA_Converted.json
+[2025-12-17 12:01:48] [INFO] [__main__] - XML to JSON converter finished
+[2025-12-17 12:02:07] [INFO] [verification_test] - Testing from verification
+[2025-12-17 12:02:07] [WARNING] [verification_test] - This is a test warning
+[2025-12-17 12:02:07] [ERROR] [verification_test] - This is a test error
+[2025-12-17 12:03:56] [INFO] [__main__] - ==================================================
+[2025-12-17 12:03:56] [INFO] [__main__] - Clinical RAG Application Starting
+[2025-12-17 12:03:56] [INFO] [__main__] - ==================================================
+[2025-12-17 12:03:56] [INFO] [__main__] - Launching Gradio application
+[2025-12-17 12:03:57] [INFO] [__main__] - Gradio app configured, starting server
+[2025-12-17 12:04:05] [INFO] [__main__] - File upload initiated
+[2025-12-17 12:04:05] [INFO] [__main__] - Processing uploaded file: CCDA_23103_20Oct2017_1043418.xml
+[2025-12-17 12:04:05] [INFO] [__main__] - Step 1: Converting XML and extracting data
+[2025-12-17 12:04:05] [INFO] [__main__] - Processing XML file: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/57bfa4933e5a28a27d441997fa3aec7a7872feb20805019cc7de898502dbd2e1/CCDA_23103_20Oct2017_1043418.xml
+[2025-12-17 12:04:05] [INFO] [xml_to_json] - Starting XML to JSON conversion: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/57bfa4933e5a28a27d441997fa3aec7a7872feb20805019cc7de898502dbd2e1/CCDA_23103_20Oct2017_1043418.xml -> /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/57bfa4933e5a28a27d441997fa3aec7a7872feb20805019cc7de898502dbd2e1/CCDA_23103_20Oct2017_1043418.xml.json
+[2025-12-17 12:04:05] [INFO] [xml_to_json] - Successfully parsed XML. Root tag: {urn:hl7-org:v3}ClinicalDocument
+[2025-12-17 12:04:05] [INFO] [xml_to_json] - XML to dictionary conversion completed
+[2025-12-17 12:04:05] [INFO] [xml_to_json] - Successfully converted and saved to: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/57bfa4933e5a28a27d441997fa3aec7a7872feb20805019cc7de898502dbd2e1/CCDA_23103_20Oct2017_1043418.xml.json
+[2025-12-17 12:04:05] [INFO] [__main__] - XML conversion successful, building semantic documents
+[2025-12-17 12:04:05] [INFO] [semantic_analysis] - Starting semantic document extraction from: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/57bfa4933e5a28a27d441997fa3aec7a7872feb20805019cc7de898502dbd2e1/CCDA_23103_20Oct2017_1043418.xml.json
+[2025-12-17 12:04:05] [INFO] [semantic_analysis] - Successfully loaded CCDA JSON file
+[2025-12-17 12:04:05] [INFO] [semantic_analysis] - Extracting demographics
+[2025-12-17 12:04:05] [INFO] [semantic_analysis] - Processing demographics section
+[2025-12-17 12:04:05] [INFO] [semantic_analysis] - Successfully extracted demographics for patient: Alice JONES Newman
+[2025-12-17 12:04:05] [INFO] [semantic_analysis] - Processing clinical sections
+[2025-12-17 12:04:05] [WARNING] [semantic_analysis] - Unknown section code: 10157-6
+[2025-12-17 12:04:05] [WARNING] [semantic_analysis] - Unknown section code: 48768-6
+[2025-12-17 12:04:05] [INFO] [semantic_analysis] - Processed 19 sections, created 52 semantic documents
+[2025-12-17 12:04:05] [INFO] [__main__] - Generated 52 semantic documents
+[2025-12-17 12:04:05] [INFO] [__main__] - Step 2: Grouping documents by LOINC
+[2025-12-17 12:04:05] [INFO] [__main__] - Grouping 52 documents by LOINC code
+[2025-12-17 12:04:05] [INFO] [__main__] - Created 18 grouped section documents
+[2025-12-17 12:04:05] [INFO] [__main__] - Step 3: Storing documents in ChromaDB
+[2025-12-17 12:04:05] [INFO] [__main__] - Creating ephemeral ChromaDB collection
+[2025-12-17 12:04:05] [INFO] [__main__] - Created collection: session_fe0235dc18484620add8a5734dd13e33
+[2025-12-17 12:04:05] [INFO] [__main__] - Adding 18 documents to collection
+[2025-12-17 12:04:06] [INFO] [__main__] - Successfully added all documents to collection
+[2025-12-17 12:04:06] [INFO] [__main__] - Upload successful: 52 records -> 18 section documents
+[2025-12-17 12:04:16] [INFO] [__main__] - Chat query received: 'patient age two years ago'
+[2025-12-17 12:04:22] [INFO] [__main__] - Query optimized: 'patient age two years ago' -> 'patient age two demographics history medical'
+[2025-12-17 12:04:22] [INFO] [__main__] - Querying ChromaDB with optimized query: 'patient age two demographics history medical'
+[2025-12-17 12:04:22] [INFO] [__main__] - Generating LLM response
+[2025-12-17 12:04:41] [INFO] [__main__] - LLM response generated (671 chars)
+[2025-12-17 12:05:23] [INFO] [__main__] - Chat query received: 'how old is patient'
+[2025-12-17 12:05:25] [INFO] [__main__] - Query optimized: 'how old is patient' -> 'patient age demographics'
+[2025-12-17 12:05:25] [INFO] [__main__] - Querying ChromaDB with optimized query: 'patient age demographics'
+[2025-12-17 12:05:25] [INFO] [__main__] - Generating LLM response
+[2025-12-17 12:05:36] [INFO] [__main__] - LLM response generated (158 chars)
+[2025-12-17 12:09:19] [INFO] [__main__] - Gradio server started
+[2025-12-17 12:09:23] [INFO] [__main__] - ==================================================
+[2025-12-17 12:09:23] [INFO] [__main__] - Clinical RAG Application Starting
+[2025-12-17 12:09:23] [INFO] [__main__] - ==================================================
+[2025-12-17 12:09:23] [INFO] [__main__] - Launching Gradio application
+[2025-12-17 12:09:23] [INFO] [__main__] - Gradio app configured, starting server
+[2025-12-17 12:09:29] [INFO] [__main__] - File upload initiated
+[2025-12-17 12:09:29] [INFO] [__main__] - Processing uploaded file: CCDA_23103_20Oct2017_1043418.xml
+[2025-12-17 12:09:29] [INFO] [__main__] - Step 1: Converting XML and extracting data
+[2025-12-17 12:09:29] [INFO] [__main__] - Processing XML file: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/57bfa4933e5a28a27d441997fa3aec7a7872feb20805019cc7de898502dbd2e1/CCDA_23103_20Oct2017_1043418.xml
+[2025-12-17 12:09:29] [INFO] [xml_to_json] - Starting XML to JSON conversion: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/57bfa4933e5a28a27d441997fa3aec7a7872feb20805019cc7de898502dbd2e1/CCDA_23103_20Oct2017_1043418.xml -> /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/57bfa4933e5a28a27d441997fa3aec7a7872feb20805019cc7de898502dbd2e1/CCDA_23103_20Oct2017_1043418.xml.json
+[2025-12-17 12:09:29] [INFO] [xml_to_json] - Successfully parsed XML. Root tag: {urn:hl7-org:v3}ClinicalDocument
+[2025-12-17 12:09:29] [INFO] [xml_to_json] - XML to dictionary conversion completed
+[2025-12-17 12:09:29] [INFO] [xml_to_json] - Successfully converted and saved to: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/57bfa4933e5a28a27d441997fa3aec7a7872feb20805019cc7de898502dbd2e1/CCDA_23103_20Oct2017_1043418.xml.json
+[2025-12-17 12:09:29] [INFO] [__main__] - XML conversion successful, building semantic documents
+[2025-12-17 12:09:29] [INFO] [semantic_analysis] - Starting semantic document extraction from: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/57bfa4933e5a28a27d441997fa3aec7a7872feb20805019cc7de898502dbd2e1/CCDA_23103_20Oct2017_1043418.xml.json
+[2025-12-17 12:09:29] [INFO] [semantic_analysis] - Successfully loaded CCDA JSON file
+[2025-12-17 12:09:29] [INFO] [semantic_analysis] - Extracting demographics
+[2025-12-17 12:09:29] [INFO] [semantic_analysis] - Processing demographics section
+[2025-12-17 12:09:29] [INFO] [semantic_analysis] - Successfully extracted demographics for patient: Alice JONES Newman
+[2025-12-17 12:09:29] [INFO] [semantic_analysis] - Processing clinical sections
+[2025-12-17 12:09:29] [WARNING] [semantic_analysis] - Unknown section code: 10157-6
+[2025-12-17 12:09:29] [WARNING] [semantic_analysis] - Unknown section code: 48768-6
+[2025-12-17 12:09:29] [INFO] [semantic_analysis] - Processed 19 sections, created 52 semantic documents
+[2025-12-17 12:09:29] [INFO] [__main__] - Generated 52 semantic documents
+[2025-12-17 12:09:29] [INFO] [__main__] - Step 2: Grouping documents by LOINC
+[2025-12-17 12:09:29] [INFO] [__main__] - Grouping 52 documents by LOINC code
+[2025-12-17 12:09:29] [INFO] [__main__] - Created 18 grouped section documents
+[2025-12-17 12:09:29] [INFO] [__main__] - Step 3: Storing documents in ChromaDB
+[2025-12-17 12:09:29] [INFO] [__main__] - Creating ephemeral ChromaDB collection
+[2025-12-17 12:09:29] [INFO] [__main__] - Created collection: session_5fd1e4daf95c4a9eaa11b2d599fd73f6
+[2025-12-17 12:09:29] [INFO] [__main__] - Adding 18 documents to collection
+[2025-12-17 12:09:30] [INFO] [__main__] - Successfully added all documents to collection
+[2025-12-17 12:09:30] [INFO] [__main__] - Upload successful: 52 records -> 18 section documents
+[2025-12-17 12:09:33] [INFO] [__main__] - Chat query received: 'patient age'
+[2025-12-17 12:09:34] [INFO] [__main__] - Query optimized: 'patient age' -> 'patient demographics age'
+[2025-12-17 12:09:34] [INFO] [__main__] - Querying ChromaDB with optimized query: 'patient demographics age'
+[2025-12-17 12:09:35] [INFO] [__main__] - Generating LLM response
+[2025-12-17 12:09:41] [INFO] [__main__] - LLM response generated (22 chars)
