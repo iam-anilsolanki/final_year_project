@@ -425,10 +425,17 @@ def semantic_assessments(section):
 # ---------------- DEMOGRAPHICS ----------------
 def semantic_demographics(ccda):
     docs = []
+    patient_id = None
+    patient_name = None
+    
     logger.info("Processing demographics section")
     try:
         patient_role = ccda["ClinicalDocument"]["recordTarget"]["patientRole"]
         patient = patient_role["patient"]
+        
+        # Extract Patient ID
+        patient_id = patient_role.get("id", {}).get("@extension", "UNKNOWN")
+        logger.debug(f"Extracted patient ID: {patient_id}")
         
         # Name
         name_node = patient.get("name", {})
@@ -448,6 +455,7 @@ def semantic_demographics(ccda):
             family = str(family_node)
             
         full_name = f"{given} {family}".strip()
+        patient_name = full_name
         logger.debug(f"Extracted patient name: {full_name}")
 
         # Gender
@@ -487,6 +495,7 @@ def semantic_demographics(ccda):
 
         text = f'''
 Patient Demographics
+Patient ID: {patient_id}
 Patient Name: {full_name}
 Gender: {gender}
 Date of Birth: {dob}
@@ -498,14 +507,14 @@ Language: {lang}
 '''
         # Using a generic LOINC or placeholder since demographics is header info
         docs.append(make_doc(text, "DEMOGRAPHICS", "N/A"))
-        logger.info(f"Successfully extracted demographics for patient: {full_name}")
+        logger.info(f"Successfully extracted demographics for patient: {full_name} (ID: {patient_id})")
         
     except Exception as e:
         logger.error(f"Error extracting demographics: {e}", exc_info=True)
         print(f"Error extracting demographics: {e}")
         pass
-    print(docs)
-    return docs
+    
+    return patient_id, patient_name, docs
 
 
 
@@ -517,10 +526,13 @@ def build_semantic_docs(json_path):
     logger.info("Successfully loaded CCDA JSON file")
 
     docs = []
+    patient_id = None
+    patient_name = None
     
     # Extract Demographics (Header Level)
     logger.info("Extracting demographics")
-    docs.extend(semantic_demographics(ccda))
+    patient_id, patient_name, demo_docs = semantic_demographics(ccda)
+    docs.extend(demo_docs)
 
     logger.info("Processing clinical sections")
     section_count = 0
@@ -585,7 +597,8 @@ def build_semantic_docs(json_path):
             logger.warning(f"Unknown section code: {code}")
 
     logger.info(f"Processed {section_count} sections, created {len(docs)} semantic documents")
-    return docs
+    logger.info(f"Patient Info - ID: {patient_id}, Name: {patient_name}")
+    return patient_id, patient_name, docs
 
 
 if __name__ == "__main__":
