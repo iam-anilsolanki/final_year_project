@@ -3,6 +3,10 @@ import json
 import re
 import sys
 import os
+from logger_config import get_logger
+
+# Initialize logger
+logger = get_logger(__name__)
 
 
 def strip_namespace(tag):
@@ -70,35 +74,47 @@ def elem_to_internal(elem, strip_ns=True):
 
 
 def convert_xml_to_json(xml_file_path, json_file_path):
+    logger.info(f"Starting XML to JSON conversion: {xml_file_path} -> {json_file_path}")
     print(f"Processing: {xml_file_path}...")
 
     if not os.path.exists(xml_file_path):
+        logger.error(f"File not found: {xml_file_path}")
         print(f"Error: File not found at {xml_file_path}")
         return
 
     try:
         # Parse the XML file
+        logger.debug(f"Parsing XML file: {xml_file_path}")
         tree = ET.parse(xml_file_path)
         root = tree.getroot()
+        logger.info(f"Successfully parsed XML. Root tag: {root.tag}")
 
         # Convert to Dictionary
         root_tag = strip_namespace(root.tag)
+        logger.debug(f"Converting XML to dictionary structure. Root tag (stripped): {root_tag}")
         data = {root_tag: elem_to_internal(root)}
+        logger.info("XML to dictionary conversion completed")
 
         # Write to JSON file
+        logger.debug(f"Writing JSON data to: {json_file_path}")
         with open(json_file_path, 'w', encoding='utf-8') as json_file:
             json.dump(data, json_file, indent=4)
 
+        logger.info(f"Successfully converted and saved to: {json_file_path}")
         print(f"Success! Converted data saved to: {json_file_path}")
+        return True
 
     except ET.ParseError as e:
+        logger.error(f"XML parsing failed for {xml_file_path}: {e}")
         print(f"Error: Failed to parse XML. The file might be corrupted.\nDetails: {e}")
     except Exception as e:
+        logger.exception(f"Unexpected error during XML to JSON conversion: {e}")
         print(f"An unexpected error occurred: {e}")
 
 
 # --- Execution ---
 if __name__ == "__main__":
+    logger.info("XML to JSON converter started")
     # Define file names
     input_xml = "CCDA_23103_20Oct2017_1043418.xml"
     output_json = "CCDA_Converted.json"
@@ -106,6 +122,8 @@ if __name__ == "__main__":
     # Create a dummy file for demonstration if it doesn't exist (using the content you provided)
     # In your real environment, you don't need this 'if' block if the file is already there.
     if not os.path.exists(input_xml):
+        logger.warning(f"Input file not found: {input_xml}")
         print("Note: Input file not found in current directory. Please ensure the file exists.")
     else:
         convert_xml_to_json(input_xml, output_json)
+    logger.info("XML to JSON converter finished")
