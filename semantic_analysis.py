@@ -56,282 +56,488 @@ def make_doc(text, section, loinc):
 def semantic_allergies(section):
     docs = []
     for entry in as_list(section.get("entry")):
-        obs = entry["act"]["entryRelationship"]["observation"]
-        substance = obs["participant"]["participantRole"]["playingEntity"]["code"]["@displayName"]
-        reaction = obs["entryRelationship"][1]["observation"]["value"]["@displayName"]
-        severity = obs["entryRelationship"][0]["observation"]["value"]["@displayName"]
+        try:
+            obs = entry.get("act", {}).get("entryRelationship", {}).get("observation", {})
+            if not obs:
+                # Try nested structure if it's just an observation directly
+                obs = entry.get("observation", {})
+            
+            if not obs: continue
 
-        text = f"""
+            # Substance name
+            substance = "Unknown Substance"
+            try:
+                substance = obs["participant"]["participantRole"]["playingEntity"]["code"].get("@displayName", "Unknown Substance")
+            except (KeyError, TypeError):
+                pass
+            
+            # Reaction and Severity
+            reaction = "Unknown Reaction"
+            severity = "Unknown Severity"
+            
+            rels = as_list(obs.get("entryRelationship", []))
+            for rel in rels:
+                inner_obs = rel.get("observation", {})
+                if not inner_obs: continue
+                
+                # Try to determine if it's reaction or severity by templateId or code
+                code = inner_obs.get("code", {}).get("@code")
+                if code == "42261003": # Reaction
+                    reaction = inner_obs.get("value", {}).get("@displayName", reaction)
+                elif code == "SEV": # Severity
+                    severity = inner_obs.get("value", {}).get("@displayName", severity)
+                else:
+                    # Fallback to order if codes aren't clear
+                    if "reaction" in inner_obs.get("code", {}).get("@displayName", "").lower():
+                        reaction = inner_obs.get("value", {}).get("@displayName", reaction)
+                    elif "severity" in inner_obs.get("code", {}).get("@displayName", "").lower():
+                        severity = inner_obs.get("value", {}).get("@displayName", severity)
+
+            text = f"""
 Allergy Record
 Substance: {substance}
 Reaction: {reaction}
 Severity: {severity}
 """
-        docs.append(make_doc(text, "ALLERGIES", "48765-2"))
+            docs.append(make_doc(text, "ALLERGIES", "48765-2"))
+        except Exception as e:
+            logger.warning(f"Error parsing allergy entry: {e}")
+            continue
     return docs
 
 # ---------------- ENCOUNTERS ----------------
 def semantic_encounters(section):
     docs = []
     for entry in as_list(section.get("entry")):
-        enc = entry["encounter"]
-        diagnosis = enc["entryRelationship"]["act"]["entryRelationship"]["observation"]["value"]["@displayName"]
-        date = format_date(enc["effectiveTime"]["@value"])
+        try:
+            enc = entry.get("encounter", {})
+            if not enc: continue
+            
+            diagnosis = "Unknown Diagnosis"
+            try:
+                # Common CCDA path for encounter diagnosis
+                diagnosis = enc.get("entryRelationship", {}).get("act", {}).get("entryRelationship", {}).get("observation", {}).get("value", {}).get("@displayName", "Unknown Diagnosis")
+            except (KeyError, TypeError):
+                pass
+                
+            dt = "Unknown Date"
+            try:
+                dt = format_date(enc.get("effectiveTime", {}).get("@value") or enc.get("effectiveTime", {}).get("low", {}).get("@value"))
+            except Exception:
+                pass
 
-        text = f"""
+            text = f"""
 Encounter
 Diagnosis: {diagnosis}
-Date: {date}
+Date: {dt}
 """
-        docs.append(make_doc(text, "ENCOUNTERS", "46240-8"))
+            docs.append(make_doc(text, "ENCOUNTERS", "46240-8"))
+        except Exception as e:
+            logger.warning(f"Error parsing encounter entry: {e}")
+            continue
     return docs
 
 # ---------------- FUNCTIONAL STATUS ----------------
 def semantic_functional_status(section):
     docs = []
-    org = section["entry"]["organizer"]
-    for comp in as_list(org.get("component")):
-        obs = comp["observation"]
-        status = obs["value"]["@displayName"]
-        date = format_date(obs["effectiveTime"]["@value"])
+    try:
+        org = section.get("entry", {}).get("organizer", {})
+        if not org:
+            # Try direct observation
+            obs_list = as_list(section.get("entry", {}).get("observation", []))
+            for obs in obs_list:
+                status = obs.get("value", {}).get("@displayName", "N/A")
+                dt = format_date(obs.get("effectiveTime", {}).get("@value") or obs.get("effectiveTime", {}).get("low", {}).get("@value"))
+                text = f"Functional Status\nAssessment: {obs.get('code', {}).get('@displayName', 'Finding')}\nResult: {status}\nDate: {dt}"
+                docs.append(make_doc(text, "FUNCTIONAL_STATUS", "47420-5"))
+            return docs
 
-        text = f"""
+        for comp in as_list(org.get("component")):
+            obs = comp.get("observation", {})
+            if not obs: continue
+            status = obs.get("value", {}).get("@displayName", "N/A")
+            dt = format_date(obs.get("effectiveTime", {}).get("@value") or obs.get("effectiveTime", {}).get("low", {}).get("@value"))
+
+            text = f"""
 Functional Status
 Finding: {status}
-Recorded On: {date}
+Recorded On: {dt}
 """
-        docs.append(make_doc(text, "FUNCTIONAL_STATUS", "47420-5"))
+            docs.append(make_doc(text, "FUNCTIONAL_STATUS", "47420-5"))
+    except Exception as e:
+        logger.debug(f"Error parsing functional status: {e}")
     return docs
 
 # ---------------- IMMUNIZATIONS ----------------
 def semantic_immunizations(section):
     docs = []
     for entry in as_list(section.get("entry")):
-        sa = entry["substanceAdministration"]
-        vaccine = sa["text"]
-        date = format_date(sa["effectiveTime"]["@value"])
+        try:
+            sa = entry.get("substanceAdministration", {})
+            if not sa: continue
+            
+            vaccine = "Unknown Vaccine"
+            try:
+                # Try code first
+                cons = sa.get("consumable", {}).get("manufacturedProduct", {}).get("manufacturedMaterial", {})
+                vaccine = cons.get("code", {}).get("@displayName") or sa.get("text", {}).get("#text") or "Unknown Vaccine"
+            except (KeyError, TypeError):
+                pass
+                
+            dt = "Unknown Date"
+            try:
+                et = sa.get("effectiveTime", {})
+                if isinstance(et, dict):
+                    dt = format_date(et.get("@value") or et.get("low", {}).get("@value"))
+                elif isinstance(et, list) and len(et) > 0:
+                    dt = format_date(et[0].get("@value") or et[0].get("low", {}).get("@value"))
+            except Exception:
+                pass
 
-        text = f"""
+            text = f"""
 Immunization
 Vaccine: {vaccine}
-Date: {date}
+Date: {dt}
 """
-        docs.append(make_doc(text, "IMMUNIZATIONS", "11369-6"))
+            docs.append(make_doc(text, "IMMUNIZATIONS", "11369-6"))
+        except Exception as e:
+            logger.debug(f"Error parsing immunizations: {e}")
+            continue
     return docs
 
 # ---------------- MEDICAL EQUIPMENT ----------------
 def semantic_equipment(section):
     docs = []
-    # Sometimes this path differs, keeping original logic but wrapped in try just in case? 
-    # Original logic seemed bespoke. Assuming it works.
-    try:
-        device = section["entry"]["organizer"]["component"]["supply"]["participant"]["participantRole"]["playingDevice"]["code"]["@displayName"]
-        text = f"""
+    for entry in as_list(section.get("entry")):
+        try:
+            # Check supply or procedure
+            item = entry.get("supply") or entry.get("procedure")
+            if not item:
+                # Check organizer nested
+                item = entry.get("organizer", {}).get("component", {}).get("supply")
+            
+            if not item: continue
+            
+            device = "Medical Equipment"
+            try:
+                device = item["participant"]["participantRole"]["playingDevice"]["code"].get("@displayName", "Unknown Device")
+            except (KeyError, TypeError):
+                pass
+                
+            dt = "Unknown Date"
+            try:
+                 dt = format_date(item.get("effectiveTime", {}).get("@value") or item.get("effectiveTime", {}).get("low", {}).get("@value"))
+            except Exception:
+                 pass
+
+            text = f"""
 Medical Equipment
 Device: {device}
+Date: {dt}
 """
-        docs.append(make_doc(text, "MEDICAL_EQUIPMENT", "46264-8"))
-    except KeyError:
-        pass # Handle cases where structure varies slightly
+            docs.append(make_doc(text, "MEDICAL_EQUIPMENT", "46264-8"))
+        except Exception as e:
+            logger.debug(f"Error parsing equipment: {e}")
+            continue
     return docs
 
 # ---------------- MEDICATIONS ----------------
 def semantic_medications(section):
     docs = []
     for entry in as_list(section.get("entry")):
-        sa = entry["substanceAdministration"]
-        
-        # Safely extract med name
         try:
-             med = sa["consumable"]["manufacturedProduct"]["manufacturedMaterial"]["code"]["@displayName"]
-        except KeyError:
-             med = "Unknown Medication"
+            sa = entry.get("substanceAdministration", {})
+            if not sa: continue
+            
+            # Safely extract med name
+            med = "Unknown Medication"
+            try:
+                # Check multiple paths for medication name
+                cons = sa.get("consumable", {}).get("manufacturedProduct", {}).get("manufacturedMaterial", {})
+                med = cons.get("code", {}).get("@displayName") or cons.get("name", {}).get("#text") or "Unknown Medication"
+            except (KeyError, TypeError):
+                pass
 
-        route = sa.get("routeCode", {}).get("@displayName", "Unknown Route")
-        
-        # Original code assumed list for effectiveTime: sa["effectiveTime"][0]["low"]["@value"]
-        # We'll make it robust
-        start = "Unknown Date"
-        try:
-            eff_time = as_list(sa.get("effectiveTime"))
-            if eff_time and isinstance(eff_time[0], dict):
-                 start = eff_time[0].get("low", {}).get("@value", "Unknown")
-            elif eff_time:
-                 # Fallback if structure is different
-                 start = eff_time[0].get("@value", "Unknown")
-        except (KeyError, IndexError):
-            pass
+            route = sa.get("routeCode", {}).get("@displayName", "Unknown Route")
+            
+            start = "Unknown Date"
+            try:
+                eff_times = as_list(sa.get("effectiveTime"))
+                for et in eff_times:
+                    if isinstance(et, dict) and "low" in et:
+                        start = format_date(et.get("low", {}).get("@value"))
+                        break
+                    elif isinstance(et, dict) and "@value" in et:
+                        start = format_date(et.get("@value"))
+                        break
+            except (KeyError, IndexError, TypeError):
+                pass
 
-        start = format_date(start)
-
-        text = f"""
+            text = f"""
 Medication
 Name: {med}
 Route: {route}
 Start Date: {start}
 """
-        docs.append(make_doc(text, "MEDICATIONS", "10160-0"))
+            docs.append(make_doc(text, "MEDICATIONS", "10160-0"))
+        except Exception as e:
+            logger.warning(f"Error parsing medication entry: {e}")
+            continue
     return docs
 
 # ---------------- PROBLEMS ----------------
 def semantic_problems(section):
     docs = []
     for entry in as_list(section.get("entry")):
-        obs = entry["act"]["entryRelationship"]["observation"]
-        problem = obs["value"]["@displayName"]
-        onset = format_date(obs["effectiveTime"]["low"]["@value"])
+        try:
+            act = entry.get("act", {})
+            obs = act.get("entryRelationship", {}).get("observation", {})
+            if not obs:
+                obs = entry.get("observation", {})
+            
+            if not obs: continue
+            
+            problem = obs.get("value", {}).get("@displayName", "Unknown Problem")
+            
+            onset = "Unknown Date"
+            try:
+                onset = format_date(obs.get("effectiveTime", {}).get("low", {}).get("@value") or obs.get("effectiveTime", {}).get("@value"))
+            except (KeyError, AttributeError):
+                pass
 
-        text = f"""
+            text = f"""
 Problem
 Condition: {problem}
 Onset Date: {onset}
 """
-        docs.append(make_doc(text, "PROBLEMS", "11450-4"))
+            docs.append(make_doc(text, "PROBLEMS", "11450-4"))
+        except Exception as e:
+            logger.warning(f"Error parsing problem entry: {e}")
+            continue
     return docs
 
 # ---------------- TREATMENT PLAN ----------------
 def semantic_treatment(section):
     docs = []
     for entry in as_list(section.get("entry")):
-        proc = entry.get("procedure", {})
-        plan = proc.get("code", {}).get("@displayName", "Unknown Plan")
-        date = format_date(proc.get("effectiveTime", {}).get("@value"))
+        try:
+            item = entry.get("act") or entry.get("procedure") or entry.get("substanceAdministration")
+            if not item: continue
+            
+            plan = item.get("text", {}).get("#text") or item.get("code", {}).get("@displayName", "Treatment Plan Item")
+            dt = "Unknown Date"
+            try:
+                dt = format_date(item.get("effectiveTime", {}).get("@value") or item.get("effectiveTime", {}).get("low", {}).get("@value"))
+            except Exception:
+                pass
 
-        text = f"""
+            text = f"""
 Treatment Plan
-Plan: {plan}
-Planned On: {date}
+Instruction: {plan}
+Planned Date: {dt}
 """
-        docs.append(make_doc(text, "TREATMENT_PLAN", "18776-5"))
+            docs.append(make_doc(text, "TREATMENT_PLAN", "18776-5"))
+        except Exception as e:
+            logger.debug(f"Error parsing treatment plan: {e}")
+            continue
     return docs
 
 # ---------------- PROCEDURES ----------------
 def semantic_procedures(section):
     docs = []
     for entry in as_list(section.get("entry")):
-        proc = entry.get("procedure", {})
-        name = proc.get("code", {}).get("@displayName", "Unknown Procedure")
-        date = format_date(proc.get("effectiveTime", {}).get("@value"))
-        
-        target_site = proc.get("targetSiteCode", {}).get("@displayName")
-        
-        # device extraction if present
-        device = None
         try:
-             device = proc["participant"]["participantRole"]["playingDevice"]["code"]["@displayName"]
-        except (KeyError, TypeError):
-             pass
+            proc = entry.get("procedure") or entry.get("act") or entry.get("observation")
+            if not proc: continue
+            
+            name = proc.get("code", {}).get("@displayName", "Unknown Procedure")
+            date = "Unknown Date"
+            try:
+                date = format_date(proc.get("effectiveTime", {}).get("@value") or proc.get("effectiveTime", {}).get("low", {}).get("@value"))
+            except Exception:
+                pass
+            
+            target_site = proc.get("targetSiteCode", {}).get("@displayName")
+            
+            # device extraction if present
+            device = None
+            try:
+                 device = proc["participant"]["participantRole"]["playingDevice"]["code"]["@displayName"]
+            except (KeyError, TypeError):
+                 pass
 
-        text = f"""
+            text = f"""
 Procedure
 Type: {name}
 Date: {date}
 """
-        if target_site:
-            text += f"Target Site: {target_site}\n"
-        if device:
-            text += f"Device Used: {device}\n"
+            if target_site:
+                text += f"Target Site: {target_site}\n"
+            if device:
+                text += f"Device Used: {device}\n"
 
-        docs.append(make_doc(text, "PROCEDURES", "47519-4"))
+            docs.append(make_doc(text, "PROCEDURES", "47519-4"))
+        except Exception as e:
+            logger.debug(f"Error parsing procedure: {e}")
+            continue
     return docs
 
 # ---------------- RESULTS ----------------
 def semantic_results(section):
     docs = []
-    # Results are often nested: organizer -> component -> observation
     for entry in as_list(section.get("entry")):
-        organizer = entry.get("organizer", {})
-        for comp in as_list(organizer.get("component")):
-            obs = comp.get("observation", {})
-            test_name = obs.get("code", {}).get("@displayName", "Unknown Test")
-            
-            # Value can be @value, @displayName, or text content
-            val = obs.get("value", {})
-            if isinstance(val, dict):
-                 value = val.get("@value") or val.get("@displayName")
-                 unit = val.get("@unit")
-            elif isinstance(val, list) and len(val) > 0:
-                 # rare case
-                 value = val[0].get("@value")
-                 unit = val[0].get("@unit")
-            else:
-                 value = "Unknown"
-                 unit = None
+        try:
+            organizer = entry.get("organizer", {})
+            if not organizer:
+                # Some files have observations directly in entries
+                obs = entry.get("observation", {})
+                if obs:
+                    docs.extend(parse_result_observation(obs))
+                continue
 
-            date = format_date(obs.get("effectiveTime", {}).get("low", {}).get("@value"))
+            for comp in as_list(organizer.get("component")):
+                obs = comp.get("observation", {})
+                if obs:
+                    docs.extend(parse_result_observation(obs))
+        except Exception as e:
+            logger.warning(f"Error parsing result entry: {e}")
+            continue
+    return docs
 
-            text = f"""
+def parse_result_observation(obs):
+    try:
+        test_name = obs.get("code", {}).get("@displayName", "Unknown Test")
+        
+        val = obs.get("value", {})
+        value = "Unknown"
+        unit = ""
+        
+        if isinstance(val, dict):
+            value = val.get("@value") or val.get("@displayName") or "Unknown"
+            unit = val.get("@unit") or ""
+        elif isinstance(val, list) and len(val) > 0:
+            value = val[0].get("@value") or val[0].get("@displayName") or "Unknown"
+            unit = val[0].get("@unit") or ""
+        
+        date = "Unknown Date"
+        try:
+            et = obs.get("effectiveTime", {})
+            if isinstance(et, dict):
+                date = format_date(et.get("low", {}).get("@value") or et.get("@value"))
+        except Exception:
+            pass
+
+        text = f"""
 Lab Result
 Test: {test_name}
-Value: {value} {unit if unit else ""}
+Value: {value} {unit}
 Date: {date}
 """
-            docs.append(make_doc(text, "RESULTS", "30954-2"))
-    return docs
+        return [make_doc(text, "RESULTS", "30954-2")]
+    except Exception as e:
+        logger.debug(f"Error parsing individual observation: {e}")
+        return []
 
 # ---------------- SOCIAL HISTORY ----------------
 def semantic_social_history(section):
     docs = []
     for entry in as_list(section.get("entry")):
-        obs = entry.get("observation", {})
-        # Observation code (e.g. Smoking Status)
-        topic = obs.get("code", {}).get("@displayName", "Social History")
-        # Value (e.g. Current Smoker)
-        status = obs.get("value", {}).get("@displayName", "Unknown Status")
-        date = format_date(obs.get("effectiveTime", {}).get("low", {}).get("@value"))
+        try:
+            obs = entry.get("observation", {})
+            if not obs: continue
+            
+            # Observation code (e.g. Smoking Status)
+            topic = obs.get("code", {}).get("@displayName", "Social History")
+            # Value (e.g. Current Smoker)
+            status = obs.get("value", {}).get("@displayName", "Unknown Status")
+            
+            dt = "Unknown Date"
+            try:
+                dt = format_date(obs.get("effectiveTime", {}).get("low", {}).get("@value") or obs.get("effectiveTime", {}).get("@value"))
+            except Exception:
+                pass
 
-        text = f"""
+            text = f"""
 Social History
 Topic: {topic}
 Status: {status}
-Date: {date}
+Date: {dt}
 """
-        docs.append(make_doc(text, "SOCIAL_HISTORY", "29762-2"))
+            docs.append(make_doc(text, "SOCIAL_HISTORY", "29762-2"))
+        except Exception as e:
+            logger.debug(f"Error parsing social history: {e}")
+            continue
     return docs
 
 # ---------------- VITAL SIGNS ----------------
 def semantic_vitals(section):
     docs = []
     for entry in as_list(section.get("entry")):
-        organizer = entry.get("organizer", {})
-        for comp in as_list(organizer.get("component")):
-            obs = comp.get("observation", {})
-            name = obs.get("code", {}).get("@displayName", "Vital Sign")
-            val_data = obs.get("value", {})
-            value = val_data.get("@value", "N/A")
-            unit = val_data.get("@unit", "")
-            date = format_date(obs.get("effectiveTime", {}).get("low", {}).get("@value"))
+        try:
+            organizer = entry.get("organizer", {})
+            for comp in as_list(organizer.get("component")):
+                obs = comp.get("observation", {})
+                if not obs: continue
+                
+                name = obs.get("code", {}).get("@displayName", "Vital Sign")
+                val_data = obs.get("value", {})
+                value = "N/A"
+                unit = ""
+                
+                if isinstance(val_data, dict):
+                    value = val_data.get("@value", "N/A")
+                    unit = val_data.get("@unit", "")
+                
+                date = "Unknown Date"
+                try:
+                    date = format_date(obs.get("effectiveTime", {}).get("low", {}).get("@value") or obs.get("effectiveTime", {}).get("@value"))
+                except Exception:
+                    pass
 
-            text = f"""
+                text = f"""
 Vital Sign
 Measurement: {name}
 Value: {value} {unit}
 Date: {date}
 """
-            docs.append(make_doc(text, "VITAL_SIGNS", "8716-3"))
+                docs.append(make_doc(text, "VITAL_SIGNS", "8716-3"))
+        except Exception as e:
+            logger.debug(f"Error parsing vital entry: {e}")
+            continue
     return docs
 
 # ---------------- GOALS ----------------
 def semantic_goals(section):
     docs = []
     for entry in as_list(section.get("entry")):
-        obs = entry.get("observation", {})
-        goal = obs.get("code", {}).get("@displayName", "Unknown Goal")
-        # Sometimes goal value is in 'value'
-        target = obs.get("value", {}).get("@value")
-        unit = obs.get("value", {}).get("@unit", "")
-        
-        status = obs.get("statusCode", {}).get("@code", "active")
-        date = format_date(obs.get("effectiveTime", {}).get("@value"))
+        try:
+            obs = entry.get("observation", {})
+            if not obs: continue
+            
+            goal = obs.get("code", {}).get("@displayName", "Unknown Goal")
+            # Sometimes goal value is in 'value'
+            target = obs.get("value", {}).get("@value")
+            unit = obs.get("value", {}).get("@unit", "")
+            
+            status = obs.get("statusCode", {}).get("@code", "active")
+            
+            dt = "Unknown Date"
+            try:
+                dt = format_date(obs.get("effectiveTime", {}).get("@value") or obs.get("effectiveTime", {}).get("low", {}).get("@value"))
+            except Exception:
+                pass
 
-        text = f"""
+            text = f"""
 Goal
 Description: {goal}
 Status: {status}
 Target: {target if target else "N/A"} {unit}
-Date: {date}
+Date: {dt}
 """
-        docs.append(make_doc(text, "GOALS", "61146-7"))
+            docs.append(make_doc(text, "GOALS", "61146-7"))
+        except Exception as e:
+            logger.debug(f"Error parsing goal: {e}")
+            continue
     return docs
 
 # ---------------- HEALTH CONCERNS ----------------
@@ -339,48 +545,67 @@ def semantic_health_concerns(section):
     docs = []
     # This section can be complex. We try to find the underlying problem observation.
     for entry in as_list(section.get("entry")):
-        act = entry.get("act", {})
-        # Concern often wraps an observation
-        rels = as_list(act.get("entryRelationship"))
-        for rel in rels:
-            obs = rel.get("observation", {})
-            if not obs: continue
-            
-            problem = obs.get("value", {}).get("@displayName")
-            if not problem:
-                 problem = obs.get("code", {}).get("@displayName")
-            
-            status = obs.get("statusCode", {}).get("@code")
-            date = format_date(obs.get("effectiveTime", {}).get("low", {}).get("@value"))
-            
-            if problem:
-                text = f"""
+        try:
+            act = entry.get("act", {})
+            # Concern often wraps an observation
+            rels = as_list(act.get("entryRelationship"))
+            for rel in rels:
+                obs = rel.get("observation", {})
+                if not obs: continue
+                
+                problem = obs.get("value", {}).get("@displayName")
+                if not problem:
+                     problem = obs.get("code", {}).get("@displayName")
+                
+                status = obs.get("statusCode", {}).get("@code")
+                
+                dt = "Unknown Date"
+                try:
+                    dt = format_date(obs.get("effectiveTime", {}).get("low", {}).get("@value") or obs.get("effectiveTime", {}).get("@value"))
+                except Exception:
+                    pass
+                
+                if problem:
+                    text = f"""
 Health Concern
 Concern: {problem}
 Status: {status}
-Date: {date}
+Date: {dt}
 """
-                docs.append(make_doc(text, "HEALTH_CONCERNS", "75310-3"))
+                    docs.append(make_doc(text, "HEALTH_CONCERNS", "75310-3"))
+        except Exception as e:
+            logger.debug(f"Error parsing health concern: {e}")
+            continue
     return docs
 
 # ---------------- MENTAL STATUS ----------------
 def semantic_mental_status(section):
     docs = []
     for entry in as_list(section.get("entry")):
-        obs = entry.get("observation", {})
-        # Sometimes it's a finding
-        finding = obs.get("value", {}).get("@displayName")
-        if not finding:
-            finding = obs.get("code", {}).get("@displayName")
+        try:
+            obs = entry.get("observation", {})
+            if not obs: continue
             
-        date = format_date(obs.get("effectiveTime", {}).get("low", {}).get("@value"))
-
-        text = f"""
+            # Sometimes it's a finding
+            finding = obs.get("value", {}).get("@displayName")
+            if not finding:
+                finding = obs.get("code", {}).get("@displayName")
+                
+            dt = "Unknown Date"
+            try:
+                dt = format_date(obs.get("effectiveTime", {}).get("low", {}).get("@value") or obs.get("effectiveTime", {}).get("@value"))
+            except Exception:
+                pass
+    
+            text = f"""
 Mental Status
 Finding: {finding}
-Date: {date}
+Date: {dt}
 """
-        docs.append(make_doc(text, "MENTAL_STATUS", "10190-7"))
+            docs.append(make_doc(text, "MENTAL_STATUS", "10190-7"))
+        except Exception as e:
+            logger.debug(f"Error parsing mental status: {e}")
+            continue
     return docs
 
 # ---------------- HELPER: TEXT EXTRACTION ----------------
@@ -423,19 +648,19 @@ def semantic_assessments(section):
     return extract_text_content(section, "ASSESSMENTS", "51848-0")
 
 # ---------------- DEMOGRAPHICS ----------------
-def semantic_demographics(ccda):
+def semantic_demographics(ccda, manual_id):
     docs = []
-    patient_id = None
+    patient_id = manual_id
     patient_name = None
     
-    logger.info("Processing demographics section")
+    logger.info(f"Processing demographics section with manual ID: {manual_id}")
     try:
         patient_role = ccda["ClinicalDocument"]["recordTarget"]["patientRole"]
         patient = patient_role["patient"]
         
-        # Extract Patient ID
-        patient_id = patient_role.get("id", {}).get("@extension", "UNKNOWN")
-        logger.debug(f"Extracted patient ID: {patient_id}")
+        # NOTE: Patient ID extraction from document is DISABLED per user requirement.
+        # patient_id = patient_role.get("id", {}).get("@extension", "UNKNOWN")
+        logger.debug(f"Using manual patient ID: {patient_id}")
         
         # Name
         name_node = patient.get("name", {})
@@ -519,19 +744,19 @@ Language: {lang}
 
 
 # ---------------- MASTER PIPELINE ----------------
-def build_semantic_docs(json_path):
-    logger.info(f"Starting semantic document extraction from: {json_path}")
+def build_semantic_docs(json_path, manual_id):
+    logger.info(f"Starting semantic document extraction from: {json_path} for patient ID: {manual_id}")
     with open(json_path, "r", encoding="utf-8") as f:
         ccda = json.load(f)
     logger.info("Successfully loaded CCDA JSON file")
 
     docs = []
-    patient_id = None
+    patient_id = manual_id
     patient_name = None
     
     # Extract Demographics (Header Level)
-    logger.info("Extracting demographics")
-    patient_id, patient_name, demo_docs = semantic_demographics(ccda)
+    logger.info(f"Extracting demographics with manual ID: {manual_id}")
+    _, patient_name, demo_docs = semantic_demographics(ccda, manual_id)
     docs.extend(demo_docs)
 
     logger.info("Processing clinical sections")
