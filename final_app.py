@@ -561,7 +561,7 @@ def launch_app():
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
     body, .gradio-container {
-        background-color: #0f172a; /* Slate 900 */
+        background-color: #022975; /* Slate 900 */
         font-family: 'Inter', sans-serif;
         color: #f1f5f9;
         margin: 0;
@@ -1011,7 +1011,7 @@ def launch_app():
                     height=600,
                     elem_classes="chatbot",
                     show_label=False,
-                    avatar_images=("👤", "🤖")  # User and Bot avatars
+                    # avatar_images=("👤", "🤖")  # User and Bot avatars
                 )
                 
                 with gr.Row():

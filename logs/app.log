@@ -1,657 +1,102 @@
-[2025-12-18 07:22:27] [INFO] [__main__] - ==================================================
-[2025-12-18 07:22:27] [INFO] [__main__] - Clinical RAG Application Starting
-[2025-12-18 07:22:27] [INFO] [__main__] - ==================================================
-[2025-12-18 07:22:27] [INFO] [__main__] - Launching Gradio application
-[2025-12-18 07:22:27] [INFO] [__main__] - Listing all patient collections
-[2025-12-18 07:22:27] [INFO] [__main__] - Found 1 patient collections
-[2025-12-18 07:22:27] [INFO] [__main__] - Gradio app configured, starting server
-[2025-12-18 07:22:59] [INFO] [__main__] - Refreshing patient list
-[2025-12-18 07:22:59] [INFO] [__main__] - Listing all patient collections
-[2025-12-18 07:22:59] [INFO] [__main__] - Found 1 patient collections
-[2025-12-18 07:23:04] [INFO] [__main__] - Listing all patient collections
-[2025-12-18 07:23:04] [INFO] [__main__] - Found 1 patient collections
-[2025-12-18 07:23:04] [INFO] [__main__] - Patient selection: 23103
-[2025-12-18 07:23:04] [INFO] [__main__] - Loading patient ID: 23103
-[2025-12-18 07:23:04] [INFO] [__main__] - Loading collection for patient 23103
-[2025-12-18 07:23:04] [INFO] [__main__] - Successfully loaded collection for patient 23103 - Alice JONES Newman
-[2025-12-18 07:23:04] [INFO] [__main__] - Successfully loaded patient 23103
-[2025-12-18 07:24:16] [INFO] [__main__] - ==================================================
-[2025-12-18 07:24:16] [INFO] [__main__] - Clinical RAG Application Starting
-[2025-12-18 07:24:16] [INFO] [__main__] - ==================================================
-[2025-12-18 07:24:16] [INFO] [__main__] - Launching Gradio application
-[2025-12-18 07:24:16] [INFO] [__main__] - Listing all patient collections
-[2025-12-18 07:24:16] [INFO] [__main__] - Found 1 patient collections
-[2025-12-18 07:24:16] [INFO] [__main__] - Gradio app configured, starting server
-[2025-12-18 07:24:28] [INFO] [__main__] - Listing all patient collections
-[2025-12-18 07:24:28] [INFO] [__main__] - Found 1 patient collections
-[2025-12-18 07:24:28] [INFO] [__main__] - Patient selection: 23103
-[2025-12-18 07:24:28] [INFO] [__main__] - Loading patient ID: 23103
-[2025-12-18 07:24:28] [INFO] [__main__] - Loading collection for patient 23103
-[2025-12-18 07:24:28] [INFO] [__main__] - Successfully loaded collection for patient 23103 - Alice JONES Newman
-[2025-12-18 07:24:28] [INFO] [__main__] - Successfully loaded patient 23103
-[2025-12-18 07:24:37] [INFO] [__main__] - Chat query received: 'patient info
+[2025-12-22 09:54:38] [INFO] [__main__] - ==================================================
+[2025-12-22 09:54:38] [INFO] [__main__] - Clinical RAG Application Starting
+[2025-12-22 09:54:38] [INFO] [__main__] - ==================================================
+[2025-12-22 09:54:38] [INFO] [__main__] - Launching Gradio application
+[2025-12-22 09:54:38] [INFO] [__main__] - Listing all patient collections
+[2025-12-22 09:54:38] [INFO] [__main__] - Found 6 patient collections
+[2025-12-22 09:54:38] [INFO] [__main__] - Gradio app configured, starting server
+[2025-12-22 09:54:52] [INFO] [__main__] - Patient selection: 5372
+[2025-12-22 09:54:52] [INFO] [__main__] - Loading patient ID: 5372
+[2025-12-22 09:54:52] [INFO] [__main__] - Loading collection for patient 5372
+[2025-12-22 09:54:52] [INFO] [__main__] - Successfully loaded collection for patient 5372 - Alice JONES Newman
+[2025-12-22 09:54:52] [INFO] [__main__] - Successfully loaded patient 5372
+[2025-12-22 09:55:04] [INFO] [__main__] - Chat query received: 'patient detail
 '
-[2025-12-18 07:24:43] [INFO] [__main__] - Query optimized: 'patient info
-' -> 'patient demographics'
-[2025-12-18 07:24:43] [INFO] [__main__] - Querying ChromaDB with optimized query: 'patient demographics'
-[2025-12-18 07:24:44] [INFO] [__main__] - Generating LLM response
-[2025-12-18 07:24:58] [INFO] [__main__] - LLM response generated (324 chars)
-[2025-12-18 07:25:02] [INFO] [__main__] - File upload initiated for patient ID: 
-[2025-12-18 07:25:02] [WARNING] [__main__] - Invalid manual ID provided: 
-[2025-12-18 07:25:02] [INFO] [__main__] - Listing all patient collections
-[2025-12-18 07:25:02] [INFO] [__main__] - Found 1 patient collections
-[2025-12-18 07:25:25] [INFO] [__main__] - File upload initiated for patient ID: 23104
-[2025-12-18 07:25:25] [WARNING] [__main__] - Invalid manual ID provided: 23104
-[2025-12-18 07:25:25] [INFO] [__main__] - Listing all patient collections
-[2025-12-18 07:25:25] [INFO] [__main__] - Found 1 patient collections
-[2025-12-18 07:25:46] [INFO] [__main__] - File upload initiated for patient ID: 23104
-[2025-12-18 07:25:46] [WARNING] [__main__] - Invalid manual ID provided: 23104
-[2025-12-18 07:25:46] [INFO] [__main__] - Listing all patient collections
-[2025-12-18 07:25:46] [INFO] [__main__] - Found 1 patient collections
-[2025-12-18 07:28:39] [INFO] [__main__] - ==================================================
-[2025-12-18 07:28:39] [INFO] [__main__] - Clinical RAG Application Starting
-[2025-12-18 07:28:39] [INFO] [__main__] - ==================================================
-[2025-12-18 07:28:39] [INFO] [__main__] - Launching Gradio application
-[2025-12-18 07:28:39] [INFO] [__main__] - Listing all patient collections
-[2025-12-18 07:28:39] [INFO] [__main__] - Found 1 patient collections
-[2025-12-18 07:28:39] [INFO] [__main__] - Gradio app configured, starting server
-[2025-12-18 07:30:14] [INFO] [__main__] - DEBUG: Entering process_upload with manual_id: '5372' (type: <class 'str'>)
-[2025-12-18 07:30:14] [INFO] [__main__] - DEBUG: Cleaned manual_id: '5372'
-[2025-12-18 07:30:14] [INFO] [__main__] - Processing uploaded file: CCDA_23103_20Oct2017_1043418.xml
-[2025-12-18 07:30:14] [INFO] [__main__] - Step 1: Converting XML and extracting data with manual ID: 5372
-[2025-12-18 07:30:14] [INFO] [__main__] - Processing XML file: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/cbeb3d58e56d9f498282c681fb44b00cf0d4857c60c01f01457be2cd83f7c53f/CCDA_23103_20Oct2017_1043418.xml for manual ID: 5372
-[2025-12-18 07:30:14] [INFO] [xml_to_json] - Starting XML to JSON conversion: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/cbeb3d58e56d9f498282c681fb44b00cf0d4857c60c01f01457be2cd83f7c53f/CCDA_23103_20Oct2017_1043418.xml -> /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/cbeb3d58e56d9f498282c681fb44b00cf0d4857c60c01f01457be2cd83f7c53f/CCDA_23103_20Oct2017_1043418.xml.json
-[2025-12-18 07:30:14] [INFO] [xml_to_json] - Successfully parsed XML. Root tag: {urn:hl7-org:v3}ClinicalDocument
-[2025-12-18 07:30:14] [INFO] [xml_to_json] - XML to dictionary conversion completed
-[2025-12-18 07:30:14] [INFO] [xml_to_json] - Successfully converted and saved to: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/cbeb3d58e56d9f498282c681fb44b00cf0d4857c60c01f01457be2cd83f7c53f/CCDA_23103_20Oct2017_1043418.xml.json
-[2025-12-18 07:30:14] [INFO] [__main__] - XML conversion successful, building semantic documents
-[2025-12-18 07:30:14] [INFO] [semantic_analysis] - Starting semantic document extraction from: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/cbeb3d58e56d9f498282c681fb44b00cf0d4857c60c01f01457be2cd83f7c53f/CCDA_23103_20Oct2017_1043418.xml.json for patient ID: 5372
-[2025-12-18 07:30:14] [INFO] [semantic_analysis] - Successfully loaded CCDA JSON file
-[2025-12-18 07:30:14] [INFO] [semantic_analysis] - Extracting demographics with manual ID: 5372
-[2025-12-18 07:30:14] [INFO] [semantic_analysis] - Processing demographics section with manual ID: 5372
-[2025-12-18 07:30:14] [INFO] [semantic_analysis] - Successfully extracted demographics for patient: Alice JONES Newman (ID: 5372)
-[2025-12-18 07:30:14] [INFO] [semantic_analysis] - Processing clinical sections
-[2025-12-18 07:30:14] [WARNING] [semantic_analysis] - Unknown section code: 10157-6
-[2025-12-18 07:30:14] [WARNING] [semantic_analysis] - Unknown section code: 48768-6
-[2025-12-18 07:30:14] [INFO] [semantic_analysis] - Processed 19 sections, created 52 semantic documents
-[2025-12-18 07:30:14] [INFO] [semantic_analysis] - Patient Info - ID: 5372, Name: Alice JONES Newman
-[2025-12-18 07:30:14] [INFO] [__main__] - Generated 52 semantic documents for patient 5372 - Alice JONES Newman
-[2025-12-18 07:30:14] [INFO] [__main__] - Loading collection for patient 5372
-[2025-12-18 07:30:14] [ERROR] [__main__] - Error loading collection for patient 5372: Collection [patient_5372] does not exist
-[2025-12-18 07:30:14] [INFO] [__main__] - Step 2: Grouping documents by LOINC
-[2025-12-18 07:30:14] [INFO] [__main__] - Grouping 52 documents by LOINC code
-[2025-12-18 07:30:14] [INFO] [__main__] - Created 18 grouped section documents
-[2025-12-18 07:30:14] [INFO] [__main__] - Step 3: Storing documents in ChromaDB
-[2025-12-18 07:30:14] [INFO] [__main__] - Creating persistent ChromaDB collection for patient 5372 - Alice JONES Newman
-[2025-12-18 07:30:14] [INFO] [__main__] - Created persistent collection: patient_5372
-[2025-12-18 07:30:14] [INFO] [__main__] - Adding 18 documents to collection
-[2025-12-18 07:30:15] [INFO] [__main__] - Successfully added all documents to persistent collection
-[2025-12-18 07:30:15] [INFO] [__main__] - Upload successful: 52 records -> 18 section documents
-[2025-12-18 07:30:15] [INFO] [__main__] - Listing all patient collections
-[2025-12-18 07:30:15] [INFO] [__main__] - Found 2 patient collections
-[2025-12-18 07:30:26] [INFO] [__main__] - DEBUG: Entering process_upload with manual_id: '5372' (type: <class 'str'>)
-[2025-12-18 07:30:26] [INFO] [__main__] - DEBUG: Cleaned manual_id: '5372'
-[2025-12-18 07:30:26] [INFO] [__main__] - Processing uploaded file: 195372.xml
-[2025-12-18 07:30:26] [INFO] [__main__] - Step 1: Converting XML and extracting data with manual ID: 5372
-[2025-12-18 07:30:26] [INFO] [__main__] - Processing XML file: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/ab34b118a79e69c1169eca085d4b39323dc6d53d663756a4b255ebe0afab4cf7/195372.xml for manual ID: 5372
-[2025-12-18 07:30:26] [INFO] [xml_to_json] - Starting XML to JSON conversion: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/ab34b118a79e69c1169eca085d4b39323dc6d53d663756a4b255ebe0afab4cf7/195372.xml -> /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/ab34b118a79e69c1169eca085d4b39323dc6d53d663756a4b255ebe0afab4cf7/195372.xml.json
-[2025-12-18 07:30:26] [INFO] [xml_to_json] - Successfully parsed XML. Root tag: {urn:hl7-org:v3}ClinicalDocument
-[2025-12-18 07:30:26] [INFO] [xml_to_json] - XML to dictionary conversion completed
-[2025-12-18 07:30:26] [INFO] [xml_to_json] - Successfully converted and saved to: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/ab34b118a79e69c1169eca085d4b39323dc6d53d663756a4b255ebe0afab4cf7/195372.xml.json
-[2025-12-18 07:30:26] [INFO] [__main__] - XML conversion successful, building semantic documents
-[2025-12-18 07:30:26] [INFO] [semantic_analysis] - Starting semantic document extraction from: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/ab34b118a79e69c1169eca085d4b39323dc6d53d663756a4b255ebe0afab4cf7/195372.xml.json for patient ID: 5372
-[2025-12-18 07:30:26] [INFO] [semantic_analysis] - Successfully loaded CCDA JSON file
-[2025-12-18 07:30:26] [INFO] [semantic_analysis] - Extracting demographics with manual ID: 5372
-[2025-12-18 07:30:26] [INFO] [semantic_analysis] - Processing demographics section with manual ID: 5372
-[2025-12-18 07:30:26] [INFO] [semantic_analysis] - Successfully extracted demographics for patient: Jeremy V Bates (ID: 5372)
-[2025-12-18 07:30:26] [INFO] [semantic_analysis] - Processing clinical sections
-[2025-12-18 07:30:26] [ERROR] [__main__] - Critical error during file processing: '@displayName'
-Traceback (most recent call last):
-  File "/Users/solankianilkumar/Projects/final_year_project/final_app.py", line 236, in process_upload
-    patient_id, patient_name, docs = get_data_from_xml(xml_path, json_path, manual_id)
-                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/solankianilkumar/Projects/final_year_project/final_app.py", line 35, in get_data_from_xml
-    patient_id, patient_name, docs = build_semantic_docs(json_path, manual_id)
-                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/solankianilkumar/Projects/final_year_project/semantic_analysis.py", line 546, in build_semantic_docs
-    docs.extend(semantic_allergies(section))
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/solankianilkumar/Projects/final_year_project/semantic_analysis.py", line 60, in semantic_allergies
-    substance = obs["participant"]["participantRole"]["playingEntity"]["code"]["@displayName"]
-                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
-KeyError: '@displayName'
-[2025-12-18 07:30:26] [INFO] [__main__] - Listing all patient collections
-[2025-12-18 07:30:26] [INFO] [__main__] - Found 2 patient collections
-[2025-12-18 07:33:16] [INFO] [xml_to_json] - Starting XML to JSON conversion: /Users/solankianilkumar/Projects/final_year_project/195372.xml -> /Users/solankianilkumar/Projects/final_year_project/195372.xml.json
-[2025-12-18 07:33:16] [INFO] [xml_to_json] - Successfully parsed XML. Root tag: {urn:hl7-org:v3}ClinicalDocument
-[2025-12-18 07:33:16] [INFO] [xml_to_json] - XML to dictionary conversion completed
-[2025-12-18 07:33:16] [INFO] [xml_to_json] - Successfully converted and saved to: /Users/solankianilkumar/Projects/final_year_project/195372.xml.json
-[2025-12-18 07:33:16] [INFO] [semantic_analysis] - Starting semantic document extraction from: /Users/solankianilkumar/Projects/final_year_project/195372.xml.json for patient ID: 5372
-[2025-12-18 07:33:16] [INFO] [semantic_analysis] - Successfully loaded CCDA JSON file
-[2025-12-18 07:33:16] [INFO] [semantic_analysis] - Extracting demographics with manual ID: 5372
-[2025-12-18 07:33:16] [INFO] [semantic_analysis] - Processing demographics section with manual ID: 5372
-[2025-12-18 07:33:16] [INFO] [semantic_analysis] - Successfully extracted demographics for patient: Jeremy V Bates (ID: 5372)
-[2025-12-18 07:33:16] [INFO] [semantic_analysis] - Processing clinical sections
-[2025-12-18 07:34:19] [INFO] [xml_to_json] - Starting XML to JSON conversion: /Users/solankianilkumar/Projects/final_year_project/195372.xml -> /Users/solankianilkumar/Projects/final_year_project/195372.xml.json
-[2025-12-18 07:34:19] [INFO] [xml_to_json] - Successfully parsed XML. Root tag: {urn:hl7-org:v3}ClinicalDocument
-[2025-12-18 07:34:19] [INFO] [xml_to_json] - XML to dictionary conversion completed
-[2025-12-18 07:34:19] [INFO] [xml_to_json] - Successfully converted and saved to: /Users/solankianilkumar/Projects/final_year_project/195372.xml.json
-[2025-12-18 07:34:19] [INFO] [semantic_analysis] - Starting semantic document extraction from: /Users/solankianilkumar/Projects/final_year_project/195372.xml.json for patient ID: 5372
-[2025-12-18 07:34:19] [INFO] [semantic_analysis] - Successfully loaded CCDA JSON file
-[2025-12-18 07:34:19] [INFO] [semantic_analysis] - Extracting demographics with manual ID: 5372
-[2025-12-18 07:34:19] [INFO] [semantic_analysis] - Processing demographics section with manual ID: 5372
-[2025-12-18 07:34:19] [INFO] [semantic_analysis] - Successfully extracted demographics for patient: Jeremy V Bates (ID: 5372)
-[2025-12-18 07:34:19] [INFO] [semantic_analysis] - Processing clinical sections
-[2025-12-18 07:34:19] [INFO] [semantic_analysis] - Processed 17 sections, created 16 semantic documents
-[2025-12-18 07:34:19] [INFO] [semantic_analysis] - Patient Info - ID: 5372, Name: Jeremy V Bates
-[2025-12-18 07:38:53] [INFO] [__main__] - File upload initiated for patient ID: 23104
-[2025-12-18 07:38:53] [WARNING] [__main__] - Invalid manual ID provided: 23104
-[2025-12-18 07:38:53] [INFO] [__main__] - Listing all patient collections
-[2025-12-18 07:38:53] [INFO] [__main__] - Found 2 patient collections
-[2025-12-18 07:44:22] [INFO] [semantic_analysis] - Starting semantic document extraction from: 195372.xml.json for patient ID: 23103
-[2025-12-18 07:44:22] [INFO] [semantic_analysis] - Successfully loaded CCDA JSON file
-[2025-12-18 07:44:22] [INFO] [semantic_analysis] - Extracting demographics with manual ID: 23103
-[2025-12-18 07:44:22] [INFO] [semantic_analysis] - Processing demographics section with manual ID: 23103
-[2025-12-18 07:44:22] [INFO] [semantic_analysis] - Successfully extracted demographics for patient: Jeremy V Bates (ID: 23103)
-[2025-12-18 07:44:22] [INFO] [semantic_analysis] - Processing clinical sections
-[2025-12-18 07:44:22] [INFO] [semantic_analysis] - Processed 17 sections, created 16 semantic documents
-[2025-12-18 07:44:22] [INFO] [semantic_analysis] - Patient Info - ID: 23103, Name: Jeremy V Bates
-[2025-12-18 07:45:36] [INFO] [__main__] - ==================================================
-[2025-12-18 07:45:36] [INFO] [__main__] - Clinical RAG Application Starting
-[2025-12-18 07:45:36] [INFO] [__main__] - ==================================================
-[2025-12-18 07:45:36] [INFO] [__main__] - Launching Gradio application
-[2025-12-18 07:45:36] [INFO] [__main__] - Listing all patient collections
-[2025-12-18 07:45:36] [INFO] [__main__] - Found 2 patient collections
-[2025-12-18 07:45:36] [INFO] [__main__] - Gradio app configured, starting server
-[2025-12-18 07:45:49] [INFO] [__main__] - File upload initiated for patient ID: 23104
-[2025-12-18 07:45:49] [INFO] [__main__] - Processing uploaded file: CCDA_23105_20Oct2017_1043418.xml
-[2025-12-18 07:45:49] [INFO] [__main__] - Step 1: Converting XML and extracting data with manual ID: 23104
-[2025-12-18 07:45:49] [INFO] [__main__] - Processing XML file: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/544ec01e6d0ed22bd53120f5a6652eb8528ed7eeddccada58fcf73904c69b3c1/CCDA_23105_20Oct2017_1043418.xml for manual ID: 23104
-[2025-12-18 07:45:49] [INFO] [xml_to_json] - Starting XML to JSON conversion: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/544ec01e6d0ed22bd53120f5a6652eb8528ed7eeddccada58fcf73904c69b3c1/CCDA_23105_20Oct2017_1043418.xml -> /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/544ec01e6d0ed22bd53120f5a6652eb8528ed7eeddccada58fcf73904c69b3c1/CCDA_23105_20Oct2017_1043418.xml.json
-[2025-12-18 07:45:49] [INFO] [xml_to_json] - Successfully parsed XML. Root tag: {urn:hl7-org:v3}ClinicalDocument
-[2025-12-18 07:45:49] [INFO] [xml_to_json] - XML to dictionary conversion completed
-[2025-12-18 07:45:49] [INFO] [xml_to_json] - Successfully converted and saved to: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/544ec01e6d0ed22bd53120f5a6652eb8528ed7eeddccada58fcf73904c69b3c1/CCDA_23105_20Oct2017_1043418.xml.json
-[2025-12-18 07:45:49] [INFO] [__main__] - XML conversion successful, building semantic documents
-[2025-12-18 07:45:49] [INFO] [semantic_analysis] - Starting semantic document extraction from: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/544ec01e6d0ed22bd53120f5a6652eb8528ed7eeddccada58fcf73904c69b3c1/CCDA_23105_20Oct2017_1043418.xml.json for patient ID: 23104
-[2025-12-18 07:45:49] [INFO] [semantic_analysis] - Successfully loaded CCDA JSON file
-[2025-12-18 07:45:49] [INFO] [semantic_analysis] - Extracting demographics with manual ID: 23104
-[2025-12-18 07:45:49] [INFO] [semantic_analysis] - Processing demographics section with manual ID: 23104
-[2025-12-18 07:45:49] [INFO] [semantic_analysis] - Successfully extracted demographics for patient: Jeremy V Bates (ID: 23104)
-[2025-12-18 07:45:49] [INFO] [semantic_analysis] - Processing clinical sections
-[2025-12-18 07:45:49] [WARNING] [semantic_analysis] - Unknown section code: 10157-6
-[2025-12-18 07:45:49] [WARNING] [semantic_analysis] - Unknown section code: 48768-6
-[2025-12-18 07:45:50] [INFO] [semantic_analysis] - Processed 19 sections, created 14 semantic documents
-[2025-12-18 07:45:50] [INFO] [semantic_analysis] - Patient Info - ID: 23104, Name: Jeremy V Bates
-[2025-12-18 07:45:50] [INFO] [__main__] - Generated 14 semantic documents for patient 23104 - Jeremy V Bates
-[2025-12-18 07:45:50] [INFO] [__main__] - Loading collection for patient 23104
-[2025-12-18 07:45:50] [ERROR] [__main__] - Error loading collection for patient 23104: Collection [patient_23104] does not exist
-[2025-12-18 07:45:50] [INFO] [__main__] - Step 2: Grouping documents by LOINC
-[2025-12-18 07:45:50] [INFO] [__main__] - Grouping 14 documents by LOINC code
-[2025-12-18 07:45:50] [INFO] [__main__] - Created 9 grouped section documents
-[2025-12-18 07:45:50] [INFO] [__main__] - Step 3: Storing documents in ChromaDB
-[2025-12-18 07:45:50] [INFO] [__main__] - Creating persistent ChromaDB collection for patient 23104 - Jeremy V Bates
-[2025-12-18 07:45:50] [INFO] [__main__] - Created persistent collection: patient_23104
-[2025-12-18 07:45:50] [INFO] [__main__] - Adding 9 documents to collection
-[2025-12-18 07:45:50] [INFO] [__main__] - Successfully added all documents to persistent collection
-[2025-12-18 07:45:50] [INFO] [__main__] - Upload successful: 14 records -> 9 section documents
-[2025-12-18 07:45:50] [INFO] [__main__] - Listing all patient collections
-[2025-12-18 07:45:50] [INFO] [__main__] - Found 3 patient collections
-[2025-12-18 07:46:16] [INFO] [__main__] - Chat query received: 'patient height
-'
-[2025-12-18 07:46:22] [INFO] [__main__] - Query optimized: 'patient height
-' -> 'height physical measurements'
-[2025-12-18 07:46:22] [INFO] [__main__] - Querying ChromaDB with optimized query: 'height physical measurements'
-[2025-12-18 07:46:23] [INFO] [__main__] - Generating LLM response
-[2025-12-18 07:46:27] [INFO] [__main__] - LLM response generated (31 chars)
-[2025-12-18 07:46:55] [INFO] [__main__] - File upload initiated for patient ID: 23106
-[2025-12-18 07:46:55] [INFO] [__main__] - Processing uploaded file: 195372.xml
-[2025-12-18 07:46:55] [INFO] [__main__] - Step 1: Converting XML and extracting data with manual ID: 23106
-[2025-12-18 07:46:55] [INFO] [__main__] - Processing XML file: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/ab34b118a79e69c1169eca085d4b39323dc6d53d663756a4b255ebe0afab4cf7/195372.xml for manual ID: 23106
-[2025-12-18 07:46:55] [INFO] [xml_to_json] - Starting XML to JSON conversion: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/ab34b118a79e69c1169eca085d4b39323dc6d53d663756a4b255ebe0afab4cf7/195372.xml -> /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/ab34b118a79e69c1169eca085d4b39323dc6d53d663756a4b255ebe0afab4cf7/195372.xml.json
-[2025-12-18 07:46:55] [INFO] [xml_to_json] - Successfully parsed XML. Root tag: {urn:hl7-org:v3}ClinicalDocument
-[2025-12-18 07:46:55] [INFO] [xml_to_json] - XML to dictionary conversion completed
-[2025-12-18 07:46:55] [INFO] [xml_to_json] - Successfully converted and saved to: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/ab34b118a79e69c1169eca085d4b39323dc6d53d663756a4b255ebe0afab4cf7/195372.xml.json
-[2025-12-18 07:46:55] [INFO] [__main__] - XML conversion successful, building semantic documents
-[2025-12-18 07:46:55] [INFO] [semantic_analysis] - Starting semantic document extraction from: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/ab34b118a79e69c1169eca085d4b39323dc6d53d663756a4b255ebe0afab4cf7/195372.xml.json for patient ID: 23106
-[2025-12-18 07:46:55] [INFO] [semantic_analysis] - Successfully loaded CCDA JSON file
-[2025-12-18 07:46:55] [INFO] [semantic_analysis] - Extracting demographics with manual ID: 23106
-[2025-12-18 07:46:55] [INFO] [semantic_analysis] - Processing demographics section with manual ID: 23106
-[2025-12-18 07:46:55] [INFO] [semantic_analysis] - Successfully extracted demographics for patient: Jeremy V Bates (ID: 23106)
-[2025-12-18 07:46:55] [INFO] [semantic_analysis] - Processing clinical sections
-[2025-12-18 07:46:55] [INFO] [semantic_analysis] - Processed 17 sections, created 16 semantic documents
-[2025-12-18 07:46:55] [INFO] [semantic_analysis] - Patient Info - ID: 23106, Name: Jeremy V Bates
-[2025-12-18 07:46:55] [INFO] [__main__] - Generated 16 semantic documents for patient 23106 - Jeremy V Bates
-[2025-12-18 07:46:55] [INFO] [__main__] - Loading collection for patient 23106
-[2025-12-18 07:46:55] [ERROR] [__main__] - Error loading collection for patient 23106: Collection [patient_23106] does not exist
-[2025-12-18 07:46:55] [INFO] [__main__] - Step 2: Grouping documents by LOINC
-[2025-12-18 07:46:55] [INFO] [__main__] - Grouping 16 documents by LOINC code
-[2025-12-18 07:46:55] [INFO] [__main__] - Created 11 grouped section documents
-[2025-12-18 07:46:55] [INFO] [__main__] - Step 3: Storing documents in ChromaDB
-[2025-12-18 07:46:55] [INFO] [__main__] - Creating persistent ChromaDB collection for patient 23106 - Jeremy V Bates
-[2025-12-18 07:46:55] [INFO] [__main__] - Created persistent collection: patient_23106
-[2025-12-18 07:46:55] [INFO] [__main__] - Adding 11 documents to collection
-[2025-12-18 07:46:56] [INFO] [__main__] - Successfully added all documents to persistent collection
-[2025-12-18 07:46:56] [INFO] [__main__] - Upload successful: 16 records -> 11 section documents
-[2025-12-18 07:46:56] [INFO] [__main__] - Listing all patient collections
-[2025-12-18 07:46:56] [INFO] [__main__] - Found 4 patient collections
-[2025-12-18 07:47:28] [INFO] [__main__] - File upload initiated for patient ID: 23107
-[2025-12-18 07:47:28] [INFO] [__main__] - Processing uploaded file: Armstead_Valter_315199_CCD_201709180916.xml
-[2025-12-18 07:47:28] [INFO] [__main__] - Step 1: Converting XML and extracting data with manual ID: 23107
-[2025-12-18 07:47:28] [INFO] [__main__] - Processing XML file: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/0db6f5af91ec9ddc08f2d4da71f9f1859b22ee567958365151372ca6599009b5/Armstead_Valter_315199_CCD_201709180916.xml for manual ID: 23107
-[2025-12-18 07:47:28] [INFO] [xml_to_json] - Starting XML to JSON conversion: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/0db6f5af91ec9ddc08f2d4da71f9f1859b22ee567958365151372ca6599009b5/Armstead_Valter_315199_CCD_201709180916.xml -> /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/0db6f5af91ec9ddc08f2d4da71f9f1859b22ee567958365151372ca6599009b5/Armstead_Valter_315199_CCD_201709180916.xml.json
-[2025-12-18 07:47:28] [INFO] [xml_to_json] - Successfully parsed XML. Root tag: {urn:hl7-org:v3}ClinicalDocument
-[2025-12-18 07:47:28] [INFO] [xml_to_json] - XML to dictionary conversion completed
-[2025-12-18 07:47:28] [INFO] [xml_to_json] - Successfully converted and saved to: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/0db6f5af91ec9ddc08f2d4da71f9f1859b22ee567958365151372ca6599009b5/Armstead_Valter_315199_CCD_201709180916.xml.json
-[2025-12-18 07:47:28] [INFO] [__main__] - XML conversion successful, building semantic documents
-[2025-12-18 07:47:28] [INFO] [semantic_analysis] - Starting semantic document extraction from: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/0db6f5af91ec9ddc08f2d4da71f9f1859b22ee567958365151372ca6599009b5/Armstead_Valter_315199_CCD_201709180916.xml.json for patient ID: 23107
-[2025-12-18 07:47:28] [INFO] [semantic_analysis] - Successfully loaded CCDA JSON file
-[2025-12-18 07:47:28] [INFO] [semantic_analysis] - Extracting demographics with manual ID: 23107
-[2025-12-18 07:47:28] [INFO] [semantic_analysis] - Processing demographics section with manual ID: 23107
-[2025-12-18 07:47:28] [INFO] [semantic_analysis] - Successfully extracted demographics for patient: Valter Armstead (ID: 23107)
-[2025-12-18 07:47:28] [INFO] [semantic_analysis] - Processing clinical sections
-[2025-12-18 07:47:28] [WARNING] [semantic_analysis] - Unknown section code: 10183-2
-[2025-12-18 07:47:28] [WARNING] [semantic_analysis] - Unknown section code: 46241-6
-[2025-12-18 07:47:28] [WARNING] [semantic_analysis] - Unknown section code: 8653-8
-[2025-12-18 07:47:28] [WARNING] [semantic_analysis] - Unknown section code: 62387-6
-[2025-12-18 07:47:28] [WARNING] [semantic_analysis] - Unknown section code: 11383-7
-[2025-12-18 07:47:28] [WARNING] [semantic_analysis] - Unknown section code: 8648-8
-[2025-12-18 07:47:28] [WARNING] [semantic_analysis] - Unknown section code: 11535-2
-[2025-12-18 07:47:28] [INFO] [semantic_analysis] - Processed 24 sections, created 8 semantic documents
-[2025-12-18 07:47:28] [INFO] [semantic_analysis] - Patient Info - ID: 23107, Name: Valter Armstead
-[2025-12-18 07:47:28] [INFO] [__main__] - Generated 8 semantic documents for patient 23107 - Valter Armstead
-[2025-12-18 07:47:28] [INFO] [__main__] - Loading collection for patient 23107
-[2025-12-18 07:47:28] [ERROR] [__main__] - Error loading collection for patient 23107: Collection [patient_23107] does not exist
-[2025-12-18 07:47:28] [INFO] [__main__] - Step 2: Grouping documents by LOINC
-[2025-12-18 07:47:28] [INFO] [__main__] - Grouping 8 documents by LOINC code
-[2025-12-18 07:47:28] [INFO] [__main__] - Created 8 grouped section documents
-[2025-12-18 07:47:28] [INFO] [__main__] - Step 3: Storing documents in ChromaDB
-[2025-12-18 07:47:28] [INFO] [__main__] - Creating persistent ChromaDB collection for patient 23107 - Valter Armstead
-[2025-12-18 07:47:28] [INFO] [__main__] - Created persistent collection: patient_23107
-[2025-12-18 07:47:28] [INFO] [__main__] - Adding 8 documents to collection
-[2025-12-18 07:47:29] [INFO] [__main__] - Successfully added all documents to persistent collection
-[2025-12-18 07:47:29] [INFO] [__main__] - Upload successful: 8 records -> 8 section documents
-[2025-12-18 07:47:29] [INFO] [__main__] - Listing all patient collections
-[2025-12-18 07:47:29] [INFO] [__main__] - Found 5 patient collections
-[2025-12-18 07:47:44] [INFO] [__main__] - Chat query received: 'patient medicine'
-[2025-12-18 07:47:46] [INFO] [__main__] - Query optimized: 'patient medicine' -> 'patient medication
-patient treatment regimen
-patient health info'
-[2025-12-18 07:47:46] [INFO] [__main__] - Querying ChromaDB with optimized query: 'patient medication
-patient treatment regimen
-patient health info'
-[2025-12-18 07:47:47] [INFO] [__main__] - Generating LLM response
-[2025-12-18 07:47:56] [INFO] [__main__] - LLM response generated (429 chars)
-[2025-12-18 07:48:07] [INFO] [__main__] - Chat query received: 'patient allergies'
-[2025-12-18 07:48:10] [INFO] [__main__] - Query optimized: 'patient allergies' -> 'patient allergies, medication history, medication side effects 
-(allergies), (patient) medical history, (patient) sensitivities, reactions'
-[2025-12-18 07:48:10] [INFO] [__main__] - Querying ChromaDB with optimized query: 'patient allergies, medication history, medication side effects 
-(allergies), (patient) medical history, (patient) sensitivities, reactions'
-[2025-12-18 07:48:10] [INFO] [__main__] - Generating LLM response
-[2025-12-18 07:48:14] [INFO] [__main__] - LLM response generated (86 chars)
-[2025-12-18 07:48:28] [INFO] [__main__] - Chat query received: 'all info about patient'
-[2025-12-18 07:48:31] [INFO] [__main__] - Query optimized: 'all info about patient' -> 'patient demographics, medical history, treatment plans, medication profiles, age demographics, vital signs, imaging studies, lab results.'
-[2025-12-18 07:48:31] [INFO] [__main__] - Querying ChromaDB with optimized query: 'patient demographics, medical history, treatment plans, medication profiles, age demographics, vital signs, imaging studies, lab results.'
-[2025-12-18 07:48:31] [INFO] [__main__] - Generating LLM response
-[2025-12-18 07:48:41] [INFO] [__main__] - LLM response generated (339 chars)
-[2025-12-18 07:49:04] [INFO] [__main__] - Chat query received: 'any medical or social data'
-[2025-12-18 07:49:09] [INFO] [__main__] - Query optimized: 'any medical or social data' -> 'medicare demographics 
-socialsecurity demographics 
-healthinsurance demographics 
-medicalhistory demographics 
-medication regimen 
-patient outcome tracking 
-vaccination history 
-immunization records 
-disease status reporting 
-mental health screenings 
-cancer treatment outcomes 
-cardiovascular risk factors 
-chronic condition management'
-[2025-12-18 07:49:09] [INFO] [__main__] - Querying ChromaDB with optimized query: 'medicare demographics 
-socialsecurity demographics 
-healthinsurance demographics 
-medicalhistory demographics 
-medication regimen 
-patient outcome tracking 
-vaccination history 
-immunization records 
-disease status reporting 
-mental health screenings 
-cancer treatment outcomes 
-cardiovascular risk factors 
-chronic condition management'
-[2025-12-18 07:49:09] [INFO] [__main__] - Generating LLM response
-[2025-12-18 07:49:35] [INFO] [__main__] - LLM response generated (946 chars)
-[2025-12-18 07:49:49] [INFO] [__main__] - Patient selection: 23104
-[2025-12-18 07:49:49] [INFO] [__main__] - Loading patient ID: 23104
-[2025-12-18 07:49:49] [INFO] [__main__] - Loading collection for patient 23104
-[2025-12-18 07:49:49] [INFO] [__main__] - Successfully loaded collection for patient 23104 - Jeremy V Bates
-[2025-12-18 07:49:49] [INFO] [__main__] - Successfully loaded patient 23104
-[2025-12-18 07:50:03] [INFO] [__main__] - Patient selection: 23104
-[2025-12-18 07:50:03] [INFO] [__main__] - Loading patient ID: 23104
-[2025-12-18 07:50:03] [INFO] [__main__] - Loading collection for patient 23104
-[2025-12-18 07:50:03] [INFO] [__main__] - Successfully loaded collection for patient 23104 - Jeremy V Bates
-[2025-12-18 07:50:03] [INFO] [__main__] - Successfully loaded patient 23104
-[2025-12-18 07:50:17] [INFO] [__main__] - Chat query received: 'all the data about jeremy
-'
-[2025-12-18 07:50:20] [INFO] [__main__] - Query optimized: 'all the data about jeremy
-' -> 'jeremy demographics 
- jeremy medical history 
- jeremy medication 
- jeremy allergies 
- jeremy lab results 
- jeremy imaging'
-[2025-12-18 07:50:20] [INFO] [__main__] - Querying ChromaDB with optimized query: 'jeremy demographics 
- jeremy medical history 
- jeremy medication 
- jeremy allergies 
- jeremy lab results 
- jeremy imaging'
-[2025-12-18 07:50:20] [INFO] [__main__] - Generating LLM response
-[2025-12-18 07:50:59] [INFO] [__main__] - LLM response generated (1493 chars)
-[2025-12-18 07:51:05] [INFO] [__main__] - Patient selection: 23107
-[2025-12-18 07:51:05] [INFO] [__main__] - Loading patient ID: 23107
-[2025-12-18 07:51:05] [INFO] [__main__] - Loading collection for patient 23107
-[2025-12-18 07:51:05] [INFO] [__main__] - Successfully loaded collection for patient 23107 - Valter Armstead
-[2025-12-18 07:51:05] [INFO] [__main__] - Successfully loaded patient 23107
-[2025-12-18 07:51:18] [INFO] [__main__] - Chat query received: 'vitals
-'
-[2025-12-18 07:51:21] [INFO] [__main__] - Query optimized: 'vitals
-' -> 'patient vital signs 
-vital sign measurements 
-blood pressure readings 
-heart rate values 
-temperature readings'
-[2025-12-18 07:51:21] [INFO] [__main__] - Querying ChromaDB with optimized query: 'patient vital signs 
-vital sign measurements 
-blood pressure readings 
-heart rate values 
-temperature readings'
-[2025-12-18 07:51:21] [INFO] [__main__] - Generating LLM response
-[2025-12-18 07:51:25] [INFO] [__main__] - LLM response generated (92 chars)
-[2025-12-18 07:51:49] [INFO] [__main__] - File upload initiated for patient ID: 23108
-[2025-12-18 07:51:49] [INFO] [__main__] - Processing uploaded file: TransitionOfCare_CCD_R11_Sample1_v8_Myra_Jones.xml
-[2025-12-18 07:51:49] [INFO] [__main__] - Step 1: Converting XML and extracting data with manual ID: 23108
-[2025-12-18 07:51:49] [INFO] [__main__] - Processing XML file: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/69bb63fb26294500968c386bf738912604b05c7a5fe53201f009eed301b11e2c/TransitionOfCare_CCD_R11_Sample1_v8_Myra_Jones.xml for manual ID: 23108
-[2025-12-18 07:51:49] [INFO] [xml_to_json] - Starting XML to JSON conversion: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/69bb63fb26294500968c386bf738912604b05c7a5fe53201f009eed301b11e2c/TransitionOfCare_CCD_R11_Sample1_v8_Myra_Jones.xml -> /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/69bb63fb26294500968c386bf738912604b05c7a5fe53201f009eed301b11e2c/TransitionOfCare_CCD_R11_Sample1_v8_Myra_Jones.xml.json
-[2025-12-18 07:51:49] [INFO] [xml_to_json] - Successfully parsed XML. Root tag: {urn:hl7-org:v3}ClinicalDocument
-[2025-12-18 07:51:49] [INFO] [xml_to_json] - XML to dictionary conversion completed
-[2025-12-18 07:51:49] [INFO] [xml_to_json] - Successfully converted and saved to: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/69bb63fb26294500968c386bf738912604b05c7a5fe53201f009eed301b11e2c/TransitionOfCare_CCD_R11_Sample1_v8_Myra_Jones.xml.json
-[2025-12-18 07:51:49] [INFO] [__main__] - XML conversion successful, building semantic documents
-[2025-12-18 07:51:49] [INFO] [semantic_analysis] - Starting semantic document extraction from: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/69bb63fb26294500968c386bf738912604b05c7a5fe53201f009eed301b11e2c/TransitionOfCare_CCD_R11_Sample1_v8_Myra_Jones.xml.json for patient ID: 23108
-[2025-12-18 07:51:49] [INFO] [semantic_analysis] - Successfully loaded CCDA JSON file
-[2025-12-18 07:51:49] [INFO] [semantic_analysis] - Extracting demographics with manual ID: 23108
-[2025-12-18 07:51:49] [INFO] [semantic_analysis] - Processing demographics section with manual ID: 23108
-[2025-12-18 07:51:49] [INFO] [semantic_analysis] - Successfully extracted demographics for patient: Myra Jones (ID: 23108)
-[2025-12-18 07:51:49] [INFO] [semantic_analysis] - Processing clinical sections
-[2025-12-18 07:51:49] [INFO] [semantic_analysis] - Processed 16 sections, created 10 semantic documents
-[2025-12-18 07:51:49] [INFO] [semantic_analysis] - Patient Info - ID: 23108, Name: Myra Jones
-[2025-12-18 07:51:49] [INFO] [__main__] - Generated 10 semantic documents for patient 23108 - Myra Jones
-[2025-12-18 07:51:49] [INFO] [__main__] - Loading collection for patient 23108
-[2025-12-18 07:51:49] [ERROR] [__main__] - Error loading collection for patient 23108: Collection [patient_23108] does not exist
-[2025-12-18 07:51:49] [INFO] [__main__] - Step 2: Grouping documents by LOINC
-[2025-12-18 07:51:49] [INFO] [__main__] - Grouping 10 documents by LOINC code
-[2025-12-18 07:51:49] [INFO] [__main__] - Created 8 grouped section documents
-[2025-12-18 07:51:49] [INFO] [__main__] - Step 3: Storing documents in ChromaDB
-[2025-12-18 07:51:49] [INFO] [__main__] - Creating persistent ChromaDB collection for patient 23108 - Myra Jones
-[2025-12-18 07:51:49] [INFO] [__main__] - Created persistent collection: patient_23108
-[2025-12-18 07:51:49] [INFO] [__main__] - Adding 8 documents to collection
-[2025-12-18 07:51:50] [INFO] [__main__] - Successfully added all documents to persistent collection
-[2025-12-18 07:51:50] [INFO] [__main__] - Upload successful: 10 records -> 8 section documents
-[2025-12-18 07:51:50] [INFO] [__main__] - Listing all patient collections
-[2025-12-18 07:51:50] [INFO] [__main__] - Found 6 patient collections
-[2025-12-18 07:52:06] [INFO] [__main__] - Chat query received: 'all the data about patient'
-[2025-12-18 07:52:09] [INFO] [__main__] - Query optimized: 'all the data about patient' -> 'patient demographics medical history medications allergies conditions diagnoses test_results lab_results imaging_results notes'
-[2025-12-18 07:52:09] [INFO] [__main__] - Querying ChromaDB with optimized query: 'patient demographics medical history medications allergies conditions diagnoses test_results lab_results imaging_results notes'
-[2025-12-18 07:52:09] [INFO] [__main__] - Generating LLM response
-[2025-12-18 07:52:19] [INFO] [__main__] - LLM response generated (305 chars)
-[2025-12-18 07:52:39] [INFO] [__main__] - Chat query received: 'medical info'
-[2025-12-18 07:52:41] [INFO] [__main__] - Query optimized: 'medical info' -> 'medical conditions, medical research, medical treatment, medications, diseases, symptoms, health benefits'
-[2025-12-18 07:52:41] [INFO] [__main__] - Querying ChromaDB with optimized query: 'medical conditions, medical research, medical treatment, medications, diseases, symptoms, health benefits'
-[2025-12-18 07:52:41] [INFO] [__main__] - Generating LLM response
-[2025-12-18 07:52:55] [INFO] [__main__] - LLM response generated (485 chars)
-[2025-12-18 07:53:17] [INFO] [__main__] - Chat query received: 'allergies ?
-'
-[2025-12-18 07:53:19] [INFO] [__main__] - Query optimized: 'allergies ?
-' -> 'allergy reaction symptoms medical history'
-[2025-12-18 07:53:19] [INFO] [__main__] - Querying ChromaDB with optimized query: 'allergy reaction symptoms medical history'
-[2025-12-18 07:53:19] [INFO] [__main__] - Generating LLM response
-[2025-12-18 07:53:26] [INFO] [__main__] - LLM response generated (208 chars)
-[2025-12-18 07:53:41] [INFO] [__main__] - Patient selection: 5372
-[2025-12-18 07:53:41] [INFO] [__main__] - Loading patient ID: 5372
-[2025-12-18 07:53:41] [INFO] [__main__] - Loading collection for patient 5372
-[2025-12-18 07:53:41] [INFO] [__main__] - Successfully loaded collection for patient 5372 - Alice JONES Newman
-[2025-12-18 07:53:41] [INFO] [__main__] - Successfully loaded patient 5372
-[2025-12-18 07:53:48] [INFO] [__main__] - Chat query received: 'patient age
-'
-[2025-12-18 07:53:50] [INFO] [__main__] - Query optimized: 'patient age
-' -> 'patient demographics, age'
-[2025-12-18 07:53:50] [INFO] [__main__] - Querying ChromaDB with optimized query: 'patient demographics, age'
-[2025-12-18 07:53:50] [INFO] [__main__] - Generating LLM response
-[2025-12-18 07:54:09] [INFO] [__main__] - LLM response generated (757 chars)
-[2025-12-18 07:58:07] [INFO] [__main__] - ==================================================
-[2025-12-18 07:58:07] [INFO] [__main__] - Clinical RAG Application Starting
-[2025-12-18 07:58:07] [INFO] [__main__] - ==================================================
-[2025-12-18 07:58:07] [INFO] [__main__] - Launching Gradio application
-[2025-12-18 07:58:07] [INFO] [__main__] - Listing all patient collections
-[2025-12-18 07:58:07] [INFO] [__main__] - Found 6 patient collections
-[2025-12-18 07:58:07] [INFO] [__main__] - Gradio app configured, starting server
-[2025-12-18 07:58:16] [INFO] [__main__] - Patient selection: 5372
-[2025-12-18 07:58:16] [INFO] [__main__] - Loading patient ID: 5372
-[2025-12-18 07:58:16] [INFO] [__main__] - Loading collection for patient 5372
-[2025-12-18 07:58:16] [INFO] [__main__] - Successfully loaded collection for patient 5372 - Alice JONES Newman
-[2025-12-18 07:58:16] [INFO] [__main__] - Successfully loaded patient 5372
-[2025-12-18 07:58:23] [INFO] [__main__] - Chat query received: 'patient age
-'
-[2025-12-18 07:58:25] [INFO] [__main__] - Query optimized: 'patient age
-' -> 'patient demographics, age'
-[2025-12-18 07:58:25] [INFO] [__main__] - Querying ChromaDB with optimized query: 'patient demographics, age'
-[2025-12-18 07:58:26] [INFO] [__main__] - Generating LLM response
-[2025-12-18 07:58:49] [INFO] [__main__] - LLM response generated (74 chars)
-[2025-12-18 07:59:01] [INFO] [__main__] - Chat query received: 'how old is patient'
-[2025-12-18 07:59:03] [INFO] [__main__] - Query optimized: 'how old is patient' -> 'patient age demographics'
-[2025-12-18 07:59:03] [INFO] [__main__] - Querying ChromaDB with optimized query: 'patient age demographics'
-[2025-12-18 07:59:03] [INFO] [__main__] - Generating LLM response
-[2025-12-18 07:59:25] [INFO] [__main__] - LLM response generated (151 chars)
-[2025-12-18 08:01:30] [INFO] [__main__] - ==================================================
-[2025-12-18 08:01:30] [INFO] [__main__] - Clinical RAG Application Starting
-[2025-12-18 08:01:30] [INFO] [__main__] - ==================================================
-[2025-12-18 08:01:30] [INFO] [__main__] - Launching Gradio application
-[2025-12-18 08:01:30] [INFO] [__main__] - Listing all patient collections
-[2025-12-18 08:01:30] [INFO] [__main__] - Found 6 patient collections
-[2025-12-18 08:01:30] [INFO] [__main__] - Gradio app configured, starting server
-[2025-12-18 08:01:43] [INFO] [__main__] - Patient selection: 5372
-[2025-12-18 08:01:43] [INFO] [__main__] - Loading patient ID: 5372
-[2025-12-18 08:01:43] [INFO] [__main__] - Loading collection for patient 5372
-[2025-12-18 08:01:43] [INFO] [__main__] - Successfully loaded collection for patient 5372 - Alice JONES Newman
-[2025-12-18 08:01:43] [INFO] [__main__] - Successfully loaded patient 5372
-[2025-12-18 08:01:55] [INFO] [__main__] - Chat query received: 'what are the patient vitals
-'
-[2025-12-18 08:01:58] [INFO] [__main__] - Query optimized: 'what are the patient vitals
-' -> 'patient vital signs
-patient health metrics
-medical examination results
-physical assessment findings'
-[2025-12-18 08:01:58] [INFO] [__main__] - Querying ChromaDB with optimized query: 'patient vital signs
-patient health metrics
-medical examination results
-physical assessment findings'
-[2025-12-18 08:01:58] [INFO] [__main__] - Generating LLM response
-[2025-12-18 08:02:33] [INFO] [__main__] - ==================================================
-[2025-12-18 08:02:33] [INFO] [__main__] - Clinical RAG Application Starting
-[2025-12-18 08:02:33] [INFO] [__main__] - ==================================================
-[2025-12-18 08:02:33] [INFO] [__main__] - Launching Gradio application
-[2025-12-18 08:02:33] [INFO] [__main__] - Listing all patient collections
-[2025-12-18 08:02:33] [INFO] [__main__] - Found 6 patient collections
-[2025-12-18 08:02:33] [INFO] [__main__] - Gradio app configured, starting server
-[2025-12-18 08:02:39] [INFO] [__main__] - Patient selection: 5372
-[2025-12-18 08:02:39] [INFO] [__main__] - Loading patient ID: 5372
-[2025-12-18 08:02:39] [INFO] [__main__] - Loading collection for patient 5372
-[2025-12-18 08:02:39] [INFO] [__main__] - Successfully loaded collection for patient 5372 - Alice JONES Newman
-[2025-12-18 08:02:39] [INFO] [__main__] - Successfully loaded patient 5372
-[2025-12-18 08:02:53] [INFO] [__main__] - Chat query received: 'what are the patient vitals'
-[2025-12-18 08:02:56] [INFO] [__main__] - Query optimized: 'what are the patient vitals' -> 'patient vital signs medication allergy medical history lab results immunization treatment dosage side effects symptoms diagnosis'
-[2025-12-18 08:02:56] [INFO] [__main__] - Querying ChromaDB with optimized query: 'patient vital signs medication allergy medical history lab results immunization treatment dosage side effects symptoms diagnosis'
-[2025-12-18 08:02:56] [INFO] [__main__] - Generating LLM response
-[2025-12-18 08:03:10] [INFO] [__main__] - LLM response generated (354 chars)
-[2025-12-18 08:03:29] [INFO] [__main__] - File upload initiated for patient ID: 23103
-[2025-12-18 08:03:29] [INFO] [__main__] - Processing uploaded file: CCDA_23103_20Oct2017_1043418.xml
-[2025-12-18 08:03:29] [INFO] [__main__] - Step 1: Converting XML and extracting data with manual ID: 23103
-[2025-12-18 08:03:29] [INFO] [__main__] - Processing XML file: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/cbeb3d58e56d9f498282c681fb44b00cf0d4857c60c01f01457be2cd83f7c53f/CCDA_23103_20Oct2017_1043418.xml for manual ID: 23103
-[2025-12-18 08:03:29] [INFO] [xml_to_json] - Starting XML to JSON conversion: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/cbeb3d58e56d9f498282c681fb44b00cf0d4857c60c01f01457be2cd83f7c53f/CCDA_23103_20Oct2017_1043418.xml -> /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/cbeb3d58e56d9f498282c681fb44b00cf0d4857c60c01f01457be2cd83f7c53f/CCDA_23103_20Oct2017_1043418.xml.json
-[2025-12-18 08:03:29] [INFO] [xml_to_json] - Successfully parsed XML. Root tag: {urn:hl7-org:v3}ClinicalDocument
-[2025-12-18 08:03:29] [INFO] [xml_to_json] - XML to dictionary conversion completed
-[2025-12-18 08:03:29] [INFO] [xml_to_json] - Successfully converted and saved to: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/cbeb3d58e56d9f498282c681fb44b00cf0d4857c60c01f01457be2cd83f7c53f/CCDA_23103_20Oct2017_1043418.xml.json
-[2025-12-18 08:03:29] [INFO] [__main__] - XML conversion successful, building semantic documents
-[2025-12-18 08:03:29] [INFO] [semantic_analysis] - Starting semantic document extraction from: /private/var/folders/s0/pk9_40fx0nl740x3q3t8r60c0000gn/T/gradio/cbeb3d58e56d9f498282c681fb44b00cf0d4857c60c01f01457be2cd83f7c53f/CCDA_23103_20Oct2017_1043418.xml.json for patient ID: 23103
-[2025-12-18 08:03:29] [INFO] [semantic_analysis] - Successfully loaded CCDA JSON file
-[2025-12-18 08:03:29] [INFO] [semantic_analysis] - Extracting demographics with manual ID: 23103
-[2025-12-18 08:03:29] [INFO] [semantic_analysis] - Processing demographics section with manual ID: 23103
-[2025-12-18 08:03:29] [INFO] [semantic_analysis] - Successfully extracted demographics for patient: Alice JONES Newman (ID: 23103)
-[2025-12-18 08:03:29] [INFO] [semantic_analysis] - Processing clinical sections
-[2025-12-18 08:03:29] [WARNING] [semantic_analysis] - Unknown section code: 10157-6
-[2025-12-18 08:03:29] [WARNING] [semantic_analysis] - Unknown section code: 48768-6
-[2025-12-18 08:03:29] [INFO] [semantic_analysis] - Processed 19 sections, created 52 semantic documents
-[2025-12-18 08:03:29] [INFO] [semantic_analysis] - Patient Info - ID: 23103, Name: Alice JONES Newman
-[2025-12-18 08:03:29] [INFO] [__main__] - Generated 52 semantic documents for patient 23103 - Alice JONES Newman
-[2025-12-18 08:03:29] [INFO] [__main__] - Loading collection for patient 23103
-[2025-12-18 08:03:29] [INFO] [__main__] - Successfully loaded collection for patient 23103 - Alice JONES Newman
-[2025-12-18 08:03:29] [INFO] [__main__] - Patient 23103 already exists - will update collection
-[2025-12-18 08:03:29] [INFO] [__main__] - Step 2: Grouping documents by LOINC
-[2025-12-18 08:03:29] [INFO] [__main__] - Grouping 52 documents by LOINC code
-[2025-12-18 08:03:29] [INFO] [__main__] - Created 18 grouped section documents
-[2025-12-18 08:03:29] [INFO] [__main__] - Step 3: Storing documents in ChromaDB
-[2025-12-18 08:03:29] [INFO] [__main__] - Creating persistent ChromaDB collection for patient 23103 - Alice JONES Newman
-[2025-12-18 08:03:29] [INFO] [__main__] - Deleted existing collection for patient 23103 (REPLACE strategy)
-[2025-12-18 08:03:29] [INFO] [__main__] - Created persistent collection: patient_23103
-[2025-12-18 08:03:29] [INFO] [__main__] - Adding 18 documents to collection
-[2025-12-18 08:03:30] [INFO] [__main__] - Successfully added all documents to persistent collection
-[2025-12-18 08:03:30] [INFO] [__main__] - Upload successful: 52 records -> 18 section documents
-[2025-12-18 08:03:30] [INFO] [__main__] - Listing all patient collections
-[2025-12-18 08:03:30] [INFO] [__main__] - Found 6 patient collections
-[2025-12-18 08:09:23] [INFO] [__main__] - ==================================================
-[2025-12-18 08:09:23] [INFO] [__main__] - Clinical RAG Application Starting
-[2025-12-18 08:09:23] [INFO] [__main__] - ==================================================
-[2025-12-18 08:09:23] [INFO] [__main__] - Launching Gradio application
-[2025-12-18 08:09:23] [INFO] [__main__] - Listing all patient collections
-[2025-12-18 08:09:23] [INFO] [__main__] - Found 6 patient collections
-[2025-12-18 08:09:23] [INFO] [__main__] - Gradio app configured, starting server
-[2025-12-18 08:09:35] [INFO] [__main__] - Patient selection: 23103
-[2025-12-18 08:09:35] [INFO] [__main__] - Loading patient ID: 23103
-[2025-12-18 08:09:35] [INFO] [__main__] - Loading collection for patient 23103
-[2025-12-18 08:09:35] [INFO] [__main__] - Successfully loaded collection for patient 23103 - Alice JONES Newman
-[2025-12-18 08:09:35] [INFO] [__main__] - Successfully loaded patient 23103
-[2025-12-18 08:09:48] [INFO] [__main__] - Chat query received: 'sould we give ipill to the patient'
-[2025-12-18 08:09:53] [INFO] [__main__] - Query optimized: 'sould we give ipill to the patient' -> 'ipill
-patient medication 
-medication dosage schedule'
-[2025-12-18 08:09:53] [INFO] [__main__] - Querying ChromaDB with optimized query: 'ipill
-patient medication 
-medication dosage schedule'
-[2025-12-18 08:09:53] [INFO] [__main__] - Generating LLM response
-[2025-12-18 08:10:01] [INFO] [__main__] - LLM response generated (126 chars)
-[2025-12-18 08:10:30] [INFO] [__main__] - Chat query received: 'what is the patient's condition
-'
-[2025-12-18 08:10:32] [INFO] [__main__] - Query optimized: 'what is the patient's condition
-' -> 'patient health status, medical condition diagnosis, disease state, symptomatology, disease treatment'
-[2025-12-18 08:10:32] [INFO] [__main__] - Querying ChromaDB with optimized query: 'patient health status, medical condition diagnosis, disease state, symptomatology, disease treatment'
-[2025-12-18 08:10:32] [INFO] [__main__] - Generating LLM response
-[2025-12-18 08:10:48] [INFO] [__main__] - LLM response generated (607 chars)
-[2025-12-18 08:13:34] [INFO] [__main__] - Chat query received: ''
-[2025-12-18 08:13:35] [INFO] [__main__] - Query optimized: '' -> 'Please enter your question:'
-[2025-12-18 08:13:35] [INFO] [__main__] - Querying ChromaDB with optimized query: 'Please enter your question:'
-[2025-12-18 08:13:35] [INFO] [__main__] - Generating LLM response
-[2025-12-18 08:13:43] [INFO] [__main__] - LLM response generated (170 chars)
-[2025-12-18 08:22:39] [INFO] [__main__] - Chat query received: 'should we give dolo
-'
-[2025-12-18 08:22:44] [INFO] [__main__] - Query optimized: 'should we give dolo
-' -> 'dolor pain 
-medication analgesics treatments'
-[2025-12-18 08:22:44] [INFO] [__main__] - Querying ChromaDB with optimized query: 'dolor pain 
-medication analgesics treatments'
-[2025-12-18 08:22:45] [INFO] [__main__] - Generating LLM response
-[2025-12-18 08:22:52] [INFO] [__main__] - LLM response generated (126 chars)
-[2025-12-18 08:26:44] [INFO] [__main__] - ==================================================
-[2025-12-18 08:26:44] [INFO] [__main__] - Clinical RAG Application Starting
-[2025-12-18 08:26:44] [INFO] [__main__] - ==================================================
-[2025-12-18 08:26:44] [INFO] [__main__] - Launching Gradio application
-[2025-12-18 08:26:44] [INFO] [__main__] - Listing all patient collections
-[2025-12-18 08:26:44] [INFO] [__main__] - Found 6 patient collections
-[2025-12-18 08:26:44] [INFO] [__main__] - Gradio app configured, starting server
-[2025-12-18 08:26:52] [INFO] [__main__] - Patient selection: 5372
-[2025-12-18 08:26:52] [INFO] [__main__] - Loading patient ID: 5372
-[2025-12-18 08:26:52] [INFO] [__main__] - Loading collection for patient 5372
-[2025-12-18 08:26:52] [INFO] [__main__] - Successfully loaded collection for patient 5372 - Alice JONES Newman
-[2025-12-18 08:26:52] [INFO] [__main__] - Successfully loaded patient 5372
-[2025-12-18 08:27:16] [INFO] [__main__] - Chat query received: 'what medicines should we give to the patients for the vomit
-'
-[2025-12-18 08:27:19] [INFO] [__main__] - Query optimized: 'what medicines should we give to the patients for the vomit
-' -> 'medication symptoms treatment medication 
-vomit gastrointestinal disorders medication 
-patient care medication dosages 
-antacid medications gastrointestinal issues 
-antiemetic medications vomiting treatment'
-[2025-12-18 08:27:19] [INFO] [__main__] - Querying ChromaDB with optimized query: 'medication symptoms treatment medication 
-vomit gastrointestinal disorders medication 
-patient care medication dosages 
-antacid medications gastrointestinal issues 
-antiemetic medications vomiting treatment'
-[2025-12-18 08:27:20] [INFO] [__main__] - Generating LLM response
-[2025-12-18 08:27:29] [INFO] [__main__] - LLM response generated (182 chars)
-[2025-12-18 08:27:53] [INFO] [__main__] - Chat query received: 'what are the patient medical history'
-[2025-12-18 08:27:55] [INFO] [__main__] - Query optimized: 'what are the patient medical history' -> 'patient health record, medical conditions, diagnosis history, treatments administered'
-[2025-12-18 08:27:55] [INFO] [__main__] - Querying ChromaDB with optimized query: 'patient health record, medical conditions, diagnosis history, treatments administered'
-[2025-12-18 08:27:55] [INFO] [__main__] - Generating LLM response
-[2025-12-18 08:28:14] [INFO] [__main__] - LLM response generated (654 chars)
-[2025-12-18 08:28:35] [INFO] [__main__] - Chat query received: 'how to reduce overweight of this patient'
-[2025-12-18 08:28:36] [INFO] [__main__] - Query optimized: 'how to reduce overweight of this patient' -> 'patient weight management diet obesity treatment'
-[2025-12-18 08:28:36] [INFO] [__main__] - Querying ChromaDB with optimized query: 'patient weight management diet obesity treatment'
-[2025-12-18 08:28:37] [INFO] [__main__] - Generating LLM response
-[2025-12-18 08:28:48] [INFO] [__main__] - LLM response generated (171 chars)
-[2025-12-18 08:29:02] [INFO] [__main__] - Chat query received: 'bmi of patient'
-[2025-12-18 08:29:04] [INFO] [__main__] - Query optimized: 'bmi of patient' -> 'patient weight measurement, patient height measurement, patient body mass index calculation'
-[2025-12-18 08:29:04] [INFO] [__main__] - Querying ChromaDB with optimized query: 'patient weight measurement, patient height measurement, patient body mass index calculation'
-[2025-12-18 08:29:04] [INFO] [__main__] - Generating LLM response
-[2025-12-18 08:29:24] [INFO] [__main__] - LLM response generated (612 chars)
-[2025-12-18 08:32:12] [INFO] [__main__] - ==================================================
-[2025-12-18 08:32:12] [INFO] [__main__] - Clinical RAG Application Starting
-[2025-12-18 08:32:12] [INFO] [__main__] - ==================================================
-[2025-12-18 08:32:12] [INFO] [__main__] - Launching Gradio application
-[2025-12-18 08:32:12] [INFO] [__main__] - Listing all patient collections
-[2025-12-18 08:32:13] [INFO] [__main__] - Found 6 patient collections
-[2025-12-18 08:32:13] [INFO] [__main__] - Gradio app configured, starting server
-[2025-12-18 08:36:25] [INFO] [__main__] - ==================================================
-[2025-12-18 08:36:25] [INFO] [__main__] - Clinical RAG Application Starting
-[2025-12-18 08:36:25] [INFO] [__main__] - ==================================================
-[2025-12-18 08:36:25] [INFO] [__main__] - Launching Gradio application
-[2025-12-18 08:36:25] [INFO] [__main__] - Listing all patient collections
-[2025-12-18 08:36:25] [INFO] [__main__] - Found 6 patient collections
-[2025-12-18 08:36:25] [INFO] [__main__] - Gradio app configured, starting server
-[2025-12-18 08:37:38] [INFO] [__main__] - ==================================================
-[2025-12-18 08:37:38] [INFO] [__main__] - Clinical RAG Application Starting
-[2025-12-18 08:37:38] [INFO] [__main__] - ==================================================
-[2025-12-18 08:37:38] [INFO] [__main__] - Launching Gradio application
-[2025-12-18 08:37:38] [INFO] [__main__] - Listing all patient collections
-[2025-12-18 08:37:38] [INFO] [__main__] - Found 6 patient collections
-[2025-12-18 08:37:39] [INFO] [__main__] - Gradio app configured, starting server
-[2025-12-18 08:39:14] [INFO] [__main__] - ==================================================
-[2025-12-18 08:39:14] [INFO] [__main__] - Clinical RAG Application Starting
-[2025-12-18 08:39:14] [INFO] [__main__] - ==================================================
-[2025-12-18 08:39:14] [INFO] [__main__] - Launching Gradio application
-[2025-12-18 08:39:14] [INFO] [__main__] - Listing all patient collections
-[2025-12-18 08:39:14] [INFO] [__main__] - Found 6 patient collections
-[2025-12-18 08:39:15] [INFO] [__main__] - Gradio app configured, starting server
-[2025-12-18 08:48:20] [INFO] [__main__] - ==================================================
-[2025-12-18 08:48:20] [INFO] [__main__] - Clinical RAG Application Starting
-[2025-12-18 08:48:20] [INFO] [__main__] - ==================================================
-[2025-12-18 08:48:20] [INFO] [__main__] - Launching Gradio application
-[2025-12-18 08:48:20] [INFO] [__main__] - Listing all patient collections
-[2025-12-18 08:48:20] [INFO] [__main__] - Found 6 patient collections
-[2025-12-18 08:48:20] [INFO] [__main__] - Gradio app configured, starting server
-[2025-12-18 08:49:05] [INFO] [__main__] - ==================================================
-[2025-12-18 08:49:05] [INFO] [__main__] - Clinical RAG Application Starting
-[2025-12-18 08:49:05] [INFO] [__main__] - ==================================================
-[2025-12-18 08:49:05] [INFO] [__main__] - Launching Gradio application
-[2025-12-18 08:49:05] [INFO] [__main__] - Listing all patient collections
-[2025-12-18 08:49:05] [INFO] [__main__] - Found 6 patient collections
-[2025-12-18 08:49:05] [INFO] [__main__] - Gradio app configured, starting server
+[2025-12-22 09:55:06] [INFO] [__main__] - Query optimized: 'patient detail
+' -> 'patient demographics 
+patient medical history 
+patient medications 
+patient allergies 
+patient vaccinations 
+patient lab results'
+[2025-12-22 09:55:06] [INFO] [__main__] - Querying ChromaDB with optimized query: 'patient demographics 
+patient medical history 
+patient medications 
+patient allergies 
+patient vaccinations 
+patient lab results'
+[2025-12-22 09:55:06] [INFO] [__main__] - Generating LLM response
+[2025-12-22 09:55:21] [INFO] [__main__] - LLM response generated (341 chars)
+[2025-12-22 09:56:21] [INFO] [__main__] - ==================================================
+[2025-12-22 09:56:21] [INFO] [__main__] - Clinical RAG Application Starting
+[2025-12-22 09:56:21] [INFO] [__main__] - ==================================================
+[2025-12-22 09:56:21] [INFO] [__main__] - Launching Gradio application
+[2025-12-22 09:56:21] [INFO] [__main__] - Listing all patient collections
+[2025-12-22 09:56:21] [INFO] [__main__] - Found 6 patient collections
+[2025-12-22 09:56:21] [INFO] [__main__] - Gradio app configured, starting server
+[2025-12-22 09:57:08] [INFO] [__main__] - ==================================================
+[2025-12-22 09:57:08] [INFO] [__main__] - Clinical RAG Application Starting
+[2025-12-22 09:57:08] [INFO] [__main__] - ==================================================
+[2025-12-22 09:57:08] [INFO] [__main__] - Launching Gradio application
+[2025-12-22 09:57:08] [INFO] [__main__] - Listing all patient collections
+[2025-12-22 09:57:08] [INFO] [__main__] - Found 6 patient collections
+[2025-12-22 09:57:08] [INFO] [__main__] - Gradio app configured, starting server
+[2025-12-22 09:58:09] [INFO] [__main__] - ==================================================
+[2025-12-22 09:58:09] [INFO] [__main__] - Clinical RAG Application Starting
+[2025-12-22 09:58:09] [INFO] [__main__] - ==================================================
+[2025-12-22 09:58:09] [INFO] [__main__] - Launching Gradio application
+[2025-12-22 09:58:09] [INFO] [__main__] - Listing all patient collections
+[2025-12-22 09:58:09] [INFO] [__main__] - Found 6 patient collections
+[2025-12-22 09:58:09] [INFO] [__main__] - Gradio app configured, starting server
+[2025-12-22 09:58:47] [INFO] [__main__] - ==================================================
+[2025-12-22 09:58:47] [INFO] [__main__] - Clinical RAG Application Starting
+[2025-12-22 09:58:47] [INFO] [__main__] - ==================================================
+[2025-12-22 09:58:47] [INFO] [__main__] - Launching Gradio application
+[2025-12-22 09:58:47] [INFO] [__main__] - Listing all patient collections
+[2025-12-22 09:58:47] [INFO] [__main__] - Found 6 patient collections
+[2025-12-22 09:58:47] [INFO] [__main__] - Gradio app configured, starting server
+[2025-12-22 09:59:07] [INFO] [__main__] - Patient selection: 5372
+[2025-12-22 09:59:07] [INFO] [__main__] - Loading patient ID: 5372
+[2025-12-22 09:59:07] [INFO] [__main__] - Loading collection for patient 5372
+[2025-12-22 09:59:07] [INFO] [__main__] - Successfully loaded collection for patient 5372 - Alice JONES Newman
+[2025-12-22 09:59:07] [INFO] [__main__] - Successfully loaded patient 5372
+[2025-12-22 09:59:12] [INFO] [__main__] - Chat query received: 'patient name'
+[2025-12-22 09:59:14] [INFO] [__main__] - Query optimized: 'patient name' -> 'patient demographics
+patient contact info'
+[2025-12-22 09:59:14] [INFO] [__main__] - Querying ChromaDB with optimized query: 'patient demographics
+patient contact info'
+[2025-12-22 09:59:14] [INFO] [__main__] - Generating LLM response
+[2025-12-22 09:59:24] [INFO] [__main__] - LLM response generated (18 chars)
+[2025-12-22 10:04:35] [INFO] [__main__] - ==================================================
+[2025-12-22 10:04:35] [INFO] [__main__] - Clinical RAG Application Starting
+[2025-12-22 10:04:35] [INFO] [__main__] - ==================================================
+[2025-12-22 10:04:35] [INFO] [__main__] - Launching Gradio application
+[2025-12-22 10:04:35] [INFO] [__main__] - Listing all patient collections
+[2025-12-22 10:04:35] [INFO] [__main__] - Found 6 patient collections
+[2025-12-22 10:04:35] [INFO] [__main__] - Gradio app configured, starting server
+[2025-12-22 10:04:40] [INFO] [__main__] - Patient selection: 5372
+[2025-12-22 10:04:40] [INFO] [__main__] - Loading patient ID: 5372
+[2025-12-22 10:04:40] [INFO] [__main__] - Loading collection for patient 5372
+[2025-12-22 10:04:40] [INFO] [__main__] - Successfully loaded collection for patient 5372 - Alice JONES Newman
+[2025-12-22 10:04:40] [INFO] [__main__] - Successfully loaded patient 5372
+[2025-12-22 10:05:17] [INFO] [__main__] - ==================================================
+[2025-12-22 10:05:17] [INFO] [__main__] - Clinical RAG Application Starting
+[2025-12-22 10:05:17] [INFO] [__main__] - ==================================================
+[2025-12-22 10:05:17] [INFO] [__main__] - Launching Gradio application
+[2025-12-22 10:05:17] [INFO] [__main__] - Listing all patient collections
+[2025-12-22 10:05:17] [INFO] [__main__] - Found 6 patient collections
+[2025-12-22 10:05:17] [INFO] [__main__] - Gradio app configured, starting server
+[2025-12-22 10:05:21] [INFO] [__main__] - Patient selection: 5372
+[2025-12-22 10:05:21] [INFO] [__main__] - Loading patient ID: 5372
+[2025-12-22 10:05:21] [INFO] [__main__] - Loading collection for patient 5372
+[2025-12-22 10:05:21] [INFO] [__main__] - Successfully loaded collection for patient 5372 - Alice JONES Newman
+[2025-12-22 10:05:21] [INFO] [__main__] - Successfully loaded patient 5372
+[2025-12-22 10:05:28] [INFO] [__main__] - Chat query received: 'patient name'
+[2025-12-22 10:05:33] [INFO] [__main__] - Query optimized: 'patient name' -> 'patient demographics 
+patient identifier 
+patient information'
+[2025-12-22 10:05:33] [INFO] [__main__] - Querying ChromaDB with optimized query: 'patient demographics 
+patient identifier 
+patient information'
+[2025-12-22 10:05:33] [INFO] [__main__] - Generating LLM response
+[2025-12-22 10:05:42] [INFO] [__main__] - LLM response generated (18 chars)
